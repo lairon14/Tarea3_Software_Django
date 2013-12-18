@@ -254,6 +254,7 @@ class ArticuloCortes(ComoSeleccionarArticulos):
             pais = self.__lista_paises[tope]
             articulo = 0
             while articulo < len(lista_promedios_aceptables) and len(lista_seleccionados) < self.get_num_articulos_aceptar():
+            
                 aux = lista_promedios_aceptables[articulo]
                 print aux
                 # ya recorri la lista con promedios aceptables para aceptar con el pais "pais"

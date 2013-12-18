@@ -180,3 +180,22 @@ def seleccionar_articulos_topico_view(request):
         return render_to_response('seleccionarArticuloParametros.html', ctx, 
         context_instance = RequestContext(request))
     
+def seleccionar_articulos_desempate_escogencia_view(request):
+    if request.method == 'POST':
+        post = request.POST
+        elegidos = post.getlist('empatados')
+        for nombre_articulo in elegidos:
+            elegido = Articulo.objects.filter(titulo = nombre_articulo)[0]
+            elegido.status = 'ACEPTADO ESPECIAL'
+            elegido.save()
+        articulos = Articulo.objects.all()
+        for art in articulos:
+            if art.status == 'POR DECIDIR':
+                art.status = 'RECHAZADO POR FALTA DE CUPO'
+                art.save()
+        ctx = {"articulos" : articulos }
+        return render_to_response('listarArticulosSeleccionPresidente.html', ctx, 
+                                       context_instance = RequestContext(request))
+        # Si el request es un GET    
+    else:
+        return HttpResponseRedirect('index.html')

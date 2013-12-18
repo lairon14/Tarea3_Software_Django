@@ -1,6 +1,16 @@
-{% extends "base.html"  %}
-{% block title %} Lista de Productos {% endblock %}
-{% block content %}
+<html>
+<head>
+<script type="text/javascript">
+var checked = 0;
+function addCheck(object) {
+if (checked!=1) checked++;
+else {
+object.checked=false;
+return false;
+}
+}
+</script>
+
 
 
 <br>
@@ -32,27 +42,21 @@
 	Presidente. Elije los articulos a aceptar de la lista de empatados
 	<br>
 	Articulos restantes: {{ n }}  Articulos por Decidir: {{n_por_decidir}}
-	<form action="listarArticulosSeleccionPresidente.html" method="POST">
-		<hidden name="articulos" value="{{articulos}}">
-		<hidden name="numeroTitulos" value="{{n_por_decidir}}">
-	{% with i=1 %}
+	<form action="{% url 'vista_seleccion_articulo_desempate_escogencia' %}" method="POST">
+	{% csrf_token %}
+		<input type="hidden" name="numeroTitulos" value="{{n_por_decidir}}">
 	{% for p in articulos %}
-		{% if p.status == 'POR DECIDIR' %}
 			<br>
-				<input type="checkbox" name="caja{{ i }}" value="">{{ p.titulo }}
-			{{ i|add:"1" }}
+		{% if p.status = 'POR DECIDIR' %}
+			<input type="checkbox" name="empatados" value="{{ p }}" onclick='addCheck(this)'>{{ p.titulo }}
 		{% endif %}
-		
 	{% endfor %}
-	{% endwith %}
 	<input name="enviar" type="submit" value="enviar">
 	</form>
 	
-	
 {% endif %}
 
-{% endblock %}
-
+</html>
 
 
 

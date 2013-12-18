@@ -58,10 +58,10 @@ MIDDLEWARE_CLASSES = (
 
 
 DIRNAME = os.path.join(os.path.dirname(__file__))
-MEDIA_ROOT = os.path.normpath(os.path.join(DIRNAME, 'media/'))
+#MEDIA_ROOT = os.path.normpath(os.path.join(DIRNAME, 'media/'))
 
                 
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
 
 ROOT_URLCONF = 'demo.urls'
 
@@ -112,4 +112,4 @@ STATICFILES_FINDERS = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/media/'

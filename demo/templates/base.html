@@ -4,9 +4,10 @@
 <head>
 	<meta charset="utf-8">
 	<title>{% block title %} Bienvenidos {% endblock %}</title>
-	<link rel="stylesheet" href="/media/bootstrap/css/bootstrap.css" />
-	<link rel="stylesheet" href="/media/bootstrap/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL}}bootstrap/css/bootstrap.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL}}bootstrap/css/bootstrap-responsive.css" />
 	<script src="/media/bootstrap/js/bootstrap.js"></script>
+	{% block js %}  {% endblock %} 
 	
 	<style type="text/css">
 		body{

@@ -1,31 +1,24 @@
 {% extends "base.html"  %}
 {% block title %} Lista de Productos {% endblock %}
+
 {% block content %}
-
-
-
-
-
-{% endblock %}
-
-
-
 
 <br>
 
 <h1 class="title">Lista de Articulos</h1>
 
 <br>
-{% if articulos %}
-	<table class="table table-hover">
-		<theader>
+<p>LISTA DE ARTICULOS</p>
+<table>
+
+<theader>
 			<tr>
 				<td>Titulo</td>
 				<td>Promedio</td>
 				<td>Estado</td>
 			</tr>
-		</theader>
-	{% for p in articulos %}
+</theader>
+{% for p in articulos %}
 		<tbody>
 			<tr>
 				<td>{{p.titulo}}</td>
@@ -34,10 +27,13 @@
 			</tr>
 		</tbody>
 
-	{% endfor %}
+{% endfor %}
+</table>
 
-	
-	
-{% endif %}
+{% endblock %}
+
+
+
+
 
 
