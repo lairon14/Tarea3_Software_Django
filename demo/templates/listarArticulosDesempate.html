@@ -1,0 +1,58 @@
+{% extends "base.html"  %}
+{% block title %} Lista de Productos {% endblock %}
+{% block content %}
+
+
+<br>
+
+<h1 class="title">Lista de Articulos</h1>
+
+<br>
+{% if articulos %}
+	<table class="table table-hover">
+		<theader>
+			<tr>
+				<td>Titulo</td>
+				<td>Promedio</td>
+				<td>Estado</td>
+			</tr>
+		</theader>
+	{% for p in articulos %}
+		<tbody>
+			<tr>
+				<td>{{p.titulo}}</td>
+				<td>{{p.calcular_promedio}}</td>
+				<td>{{p.status}}</td>						
+			</tr>
+		</tbody>
+
+	{% endfor %}
+	</table>
+	<br>
+	Presidente. Elije los articulos a aceptar de la lista de empatados
+	<br>
+	Articulos restantes: {{ n }}  Articulos por Decidir: {{n_por_decidir}}
+	<form action="listarArticulosSeleccionPresidente.html" method="POST">
+		<hidden name="articulos" value="{{articulos}}">
+		<hidden name="numeroTitulos" value="{{n_por_decidir}}">
+	{% with i=1 %}
+	{% for p in articulos %}
+		{% if p.status == 'POR DECIDIR' %}
+			<br>
+				<input type="checkbox" name="caja{{ i }}" value="">{{ p.titulo }}
+			{{ i|add:"1" }}
+		{% endif %}
+		
+	{% endfor %}
+	{% endwith %}
+	<input name="enviar" type="submit" value="enviar">
+	</form>
+	
+	
+{% endif %}
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} Login {% endblock %}
+{% block content %}
+	<br>
+	<h3> Seleccion de articulos </h3>
+	{% if user.is_authenticated %}
+		<p> Lista de articulos</p>
+		<ul id="nav">
+		<li><a href="{% url 'vista_principal' %}">Inicio</a></li>
+		<li><a href="{% url 'vista_seleccion_articulo_aceptados_empatados' %}">Seleccionar Aceptados / Empatados </a></li>
+		<li><a href="{% url 'vista_seleccion_articulo_min_p' %}">Seleccionar por Pais </a></li>
+		<li><a href="{% url 'vista_seleccion_articulo_cortes' %}">Seleccionar por notas de corte </a></li>
+		<li><a href="{% url 'vista_seleccion_articulo_porcentaje' %}">Seleccionar proporcional a los paises </a></li>	
+		<li><a href="{% url 'vista_seleccion_articulo_topico' %}">Seleccionar por topicos </a></li>	
+	</ul>
+	{% endif %}
+{% endblock %}}
+	
