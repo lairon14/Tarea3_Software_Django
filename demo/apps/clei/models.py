@@ -55,16 +55,18 @@ class Articulo(models.Model):
     
     def es_aceptable(self):
         evaluaciones = Evaluacion.objects.filter(articulo=self)
-        return len(evaluaciones) >= 2 and self.calcular_promedio() >= 3.0
-            
+        return len(evaluaciones) >= 2 and self.calcular_promedio() >= 3.0        
     
     def calcular_promedio(self):
         evaluaciones = Evaluacion.objects.filter(articulo=self)
-        suma = sum([eva.nota for eva in evaluaciones])
-        try:
-            promedio = float(suma) / float(len(evaluaciones))
-        except ZeroDivisionError:
+        if len(evaluaciones)<2:
             promedio = 0
+        else:
+            suma = sum([eva.nota for eva in evaluaciones])
+            try:
+                promedio = float(suma) / float(len(evaluaciones))
+            except ZeroDivisionError:
+                promedio = 0
         return promedio
     
     def pertenece_a_pais(self, pais):

@@ -1,18 +1,38 @@
-<html>
-<head>
+{% extends "base.html"  %}
+{% block title %} Lista de Articulos {% endblock %}
+
+{% block scripts %}
 <script type="text/javascript">
-var checked = 0;
-function addCheck(object) {
-if (checked!=1) checked++;
-else {
-object.checked=false;
-return false;
+function checkboxlimit(checkgroup, limit){
+	var checkgroup=checkgroup
+	var limit=limit
+	for (var i=0; i<checkgroup.length; i++){
+		checkgroup[i].onclick=function(){
+		var checkedcount=0
+		for (var i=0; i<checkgroup.length; i++)
+			checkedcount+=(checkgroup[i].checked)? 1 : 0
+		subm = document.getElementById('sub');
+		if (checkedcount>limit){
+			alert("Solo puedes elegir un maximo de "+limit+" articulos")
+			this.checked=false
+			}
+		if (checkedcount==limit){
+			subm.hidden = false
+			}
+		if (checkedcount<limit){
+			subm.hidden = true
+			}
+		
+		
+		}
+	}
 }
-}
+
 </script>
+{% endblock %}
 
 
-
+{% block content %}
 <br>
 
 <h1 class="title">Lista de Articulos</h1>
@@ -39,24 +59,29 @@ return false;
 	{% endfor %}
 	</table>
 	<br>
-	Presidente. Elije los articulos a aceptar de la lista de empatados
+	Presidente. Elige los {{n_por_decidir}} articulo(s) a aceptar de la lista de empatados
 	<br>
-	Articulos restantes: {{ n }}  Articulos por Decidir: {{n_por_decidir}}
-	<form action="{% url 'vista_seleccion_articulo_desempate_escogencia' %}" method="POST">
+	<form id="desempate" action="{% url 'vista_seleccion_articulo_desempate_escogencia' %}" method="POST">
 	{% csrf_token %}
-		<input type="hidden" name="numeroTitulos" value="{{n_por_decidir}}">
 	{% for p in articulos %}
 			<br>
 		{% if p.status = 'POR DECIDIR' %}
-			<input type="checkbox" name="empatados" value="{{ p }}" onclick='addCheck(this)'>{{ p.titulo }}
+			<input type="checkbox" name="empatados" value="{{ p }}">{{ p.titulo }}
 		{% endif %}
 	{% endfor %}
-	<input name="enviar" type="submit" value="enviar">
+	<input id="sub" hidden="true" name="enviar" type="submit" value="Enviar">
 	</form>
+	
+	<script type="text/javascript">
+
+	//Syntax: checkboxlimit(checkbox_reference, limit)
+		checkboxlimit(document.forms.desempate.empatados, {{n_por_decidir}})
+
+	</script>
 	
 {% endif %}
 
-</html>
+{% endblock %}
 
 
 

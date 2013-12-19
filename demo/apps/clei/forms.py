@@ -4,6 +4,7 @@ Created on 14/12/2013
 @author: HP
 '''
 from django import forms
+from django.forms.widgets import HiddenInput
 
 from demo.apps.clei.models import MiembroCP, Articulo, Evaluacion
 
@@ -11,8 +12,17 @@ class RegistrarMiembroCP(forms.ModelForm):
     '''
     Clase para formulario de miembro de CP
     '''
+    
+    def __init__(self, *args, **kwargs):
+        super(RegistrarMiembroCP, self).__init__(*args, **kwargs)
+        # Verifico si ya el presidente esta
+        # agregado a la base de datos
+        for cp in MiembroCP.objects.all():
+            if cp.es_presidente == True:
+                self.fields["es_presidente"].widget = HiddenInput()
     class Meta:
         model = MiembroCP
+                
         
     
     def clean(self):

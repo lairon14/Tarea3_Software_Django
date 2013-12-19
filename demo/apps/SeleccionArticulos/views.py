@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 
-from demo.apps.clei.models import Articulo, MiembroCP, Evaluacion
+from demo.apps.clei.models import Articulo
 
 from demo.apps.SeleccionArticulos.forms import NForm, CortesForm, MinPForm
 from demo.apps.SeleccionArticulos.models import ArticuloPorcentaje, ArticuloPaisesDesempate
@@ -23,8 +23,7 @@ def seleccionar_articulos_aceptados_empatados_view(request):
             estrategia = ArticuloDesempate(n)
             articulos = estrategia.seleccionar_articulos()
             n_restantes = articulos_restantes_por_aceptar(articulos,n)
-            n_decidir = articulos_restantes_por_decidir(articulos)
-            ctx = {"articulos":articulos, "informacion":info, "n":n_restantes, "n_por_decidir":n_decidir}
+            ctx = {"articulos":articulos, "informacion":info, "n_por_decidir":n_restantes}
             return render_to_response('listarArticulosDesempate.html', ctx, 
                                        context_instance = RequestContext(request))
                 
@@ -193,6 +192,7 @@ def seleccionar_articulos_desempate_escogencia_view(request):
             if art.status == 'POR DECIDIR':
                 art.status = 'RECHAZADO POR FALTA DE CUPO'
                 art.save()
+        
         ctx = {"articulos" : articulos }
         return render_to_response('listarArticulosSeleccionPresidente.html', ctx, 
                                        context_instance = RequestContext(request))
