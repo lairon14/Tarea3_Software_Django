@@ -3,10 +3,11 @@
 
 {% block content %}
 	<br>
-	<h3> Agregar Articulos </h3>
+	<h3> Registrar Articulos </h3>
 	<br>
 		{{ informacion }}
 	<br>
+	 
 	<form action="." method="POST" encType="multipart/form-data">
 		{% csrf_token %}
 		{{ form.as_p }}
@@ -15,4 +16,6 @@
 	</form>
 	
 	<a href="/"> Regresar </a>
+	<a href={% url 'vista_registrar_topico' %}>Agregar Tópico</a>
+	<a href={% url 'vista_registrar_autor' %}>Agregar Autor</a>
 {% endblock %}
