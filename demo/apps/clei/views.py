@@ -2,9 +2,10 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 
 from demo.apps.clei.forms import RegistrarMiembroCP, RegistrarArticuloForm
-from demo.apps.clei.forms import RegistrarEvaluacionForm
+from demo.apps.clei.forms import RegistrarEvaluacionForm, RegistrarTopico
+from demo.apps.clei.forms import RegistrarAutorForm
 
-from demo.apps.clei.models import Evaluacion
+from demo.apps.clei.models import Evaluacion, Topico, Autor
 
 def index_view(request):
     return render_to_response('index.html',
@@ -38,9 +39,61 @@ def registrar_miembroCP_view(request):
         ctx = {"form":form}
         return render_to_response('registrarMiembroCP.html', ctx, 
                                        context_instance = RequestContext(request))
+
+
+
+def registrar_topico_view(request):
+
+    if request.method == 'POST':
+        form = RegistrarTopico(request.POST)
+        if form.is_valid():
+            topico = Topico()
+            topico.nombre = form.cleaned_data["nombre"]
+            topico.save()
+            info = "Se guardo satisfactoriamente"
+        else:
+            info = "Informacion con datos incorrectos"
+                
+        form = RegistrarTopico()
+        ctx = {"form":form, "informacion":info}
+        return render_to_response('registrarTopico.html', ctx, 
+                                    context_instance = RequestContext(request))
+        # Si el request es un GET    
+    else:
+        form = RegistrarTopico()
+        ctx = {"form":form}
+        return render_to_response('registrarTopico.html', ctx, 
+                                       context_instance = RequestContext(request))
+
+
+def registrar_autor_view(request):
+
+    if request.method == 'POST':
+        form = RegistrarAutorForm(request.POST)
+        if form.is_valid():
+            autor = Autor()
+            autor.nombre = form.cleaned_data["nombre"]
+            autor.apellido = form.cleaned_data["apellido"]
+            autor.institucion = form.cleaned_data["institucion"]
+            autor.pais = form.cleaned_data["pais"]
+            autor.save()
+            info = "Se guardo satisfactoriamente"
+                
+        else:
+            info = "Informacion con datos incorrectos"
+                
+        form = RegistrarAutorForm()
+        ctx = {"form":form, "informacion":info}
+        return render_to_response('registrarAutor.html', ctx, 
+                                    context_instance = RequestContext(request))
+        # Si el request es un GET    
+    else:
+        form = RegistrarAutorForm()
+        ctx = {"form":form}
+        return render_to_response('registrarAutor.html', ctx, 
+                                       context_instance = RequestContext(request))
             
     
-
 def registrar_articulo_view(request):
 
     if request.method == 'POST':
@@ -60,7 +113,7 @@ def registrar_articulo_view(request):
         else:
             info = "Informacion con datos incorrectos"
                 
-        form = RegistrarArticuloForm()
+        form = RegistrarArticuloForm(request.POST)
         ctx = {"form":form, "informacion":info}
         return render_to_response('registrarArticulo.html', ctx, 
                                     context_instance = RequestContext(request))

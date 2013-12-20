@@ -4,9 +4,12 @@ Created on 14/12/2013
 @author: HP
 '''
 from django import forms
+from django.contrib import admin
 from django.forms.widgets import HiddenInput
+from django.template.loader import render_to_string 
 
-from demo.apps.clei.models import MiembroCP, Articulo, Evaluacion
+from demo.apps.clei.models import MiembroCP, Articulo, Evaluacion, Topico, Autor
+
 
 class RegistrarMiembroCP(forms.ModelForm):
     '''
@@ -27,6 +30,40 @@ class RegistrarMiembroCP(forms.ModelForm):
     
     def clean(self):
         return self.cleaned_data
+
+
+class RegistrarTopico(forms.ModelForm):
+    '''
+    Clase para formulario de registro de topico
+    '''
+    class Meta:
+        model = Topico
+              
+  
+    def clean_nombre(self):
+        nombre_topico = self.cleaned_data['nombre']
+        # No debe haber 2 topicos con un mismo nombre
+        try:
+            topico = Topico.objects.get(nombre=nombre_topico)
+        except:
+            return nombre_topico        
+        raise forms.ValidationError("Nombre de topico ya existe")
+
+    def clean(self):
+        return self.cleaned_data
+
+class RegistrarAutorForm(forms.ModelForm):
+    '''
+    Clase para formulario de registro de topico
+    '''
+    class Meta:
+        model = Autor
+                
+    
+    def clean(self):
+        return self.cleaned_data
+
+
     
 class RegistrarArticuloForm(forms.ModelForm):
     '''
@@ -38,14 +75,24 @@ class RegistrarArticuloForm(forms.ModelForm):
         self.fields['p3'].required = False
         self.fields['p4'].required = False
         self.fields['p5'].required = False
+
     class Meta:
         model = Articulo
         exclude = ('status',)
-        
-    
+
+    def clean_titulo(self):
+        titulo_articulo = self.cleaned_data['titulo']
+        # No debe haber 2 articulos con un mismo titulo
+        for art in Articulo.objects.all():
+            if art.titulo == titulo_articulo:
+                self._errors['title'] = ['Invalid date given.']
+                raise forms.ValidationError(u'El titulo del articulo ya existe')
+        return titulo_articulo
+
     def clean(self):
-        
         return self.cleaned_data
+
+        
     
 class RegistrarEvaluacionForm(forms.ModelForm):
     '''

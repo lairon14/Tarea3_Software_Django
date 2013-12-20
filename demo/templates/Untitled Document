@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %} Registrar Autor {% endblock %}
+
+{% block content %}
+	<br>
+	<h3> Registrar Autor </h3>
+	<br>
+		{{ informacion }}
+	<br>
+	<form action="." method="POST" encType="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Registrar">
+		<input type="reset" value="Limpiar">
+	</form>
+	
+	<a href="/"> Regresar </a>
+{% endblock %}
