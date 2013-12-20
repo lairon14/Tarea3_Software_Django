@@ -1,0 +1,38 @@
+{% extends "base.html"  %}
+{% block title %} Lista de Productos {% endblock %}
+
+{% block content %}
+
+<br>
+
+<h1 class="title">Lista de Articulos</h1>
+
+<br>
+<table>
+
+<theader>
+			<tr>
+				<td>Titulo</td>
+				<td>Promedio</td>
+				<td>Estado</td>
+			</tr>
+</theader>
+{% for p in articulos %}
+		<tbody>
+			<tr>
+				<td>{{p.titulo}}</td>
+				<td>{{p.calcular_promedio}}</td>
+				<td>{{p.status}}</td>						
+			</tr>
+		</tbody>
+
+{% endfor %}
+</table>
+
+{% endblock %}
+
+
+
+
+
+

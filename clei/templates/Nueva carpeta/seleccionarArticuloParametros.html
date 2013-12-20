@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} Indicar cantidad de articulos que seran aceptados {% endblock %}
+
+{% block content %}
+	<br>
+		{{ informacion }}
+	<br>
+	<br>
+	<h3> Indique valor: </h3>
+	<form action="." method="POST" encType="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Aceptar">
+		<input type="reset" value="Limpiar">
+	</form>
+	
+	<a href="/"> Regresar </a>
+{% endblock %}
+	

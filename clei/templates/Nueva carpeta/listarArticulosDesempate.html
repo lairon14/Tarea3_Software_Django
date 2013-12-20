@@ -1,0 +1,87 @@
+{% extends "base.html"  %}
+{% block title %} Lista de Articulos {% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+function checkboxlimit(checkgroup, limit){
+	var checkgroup=checkgroup
+	var limit=limit
+	for (var i=0; i<checkgroup.length; i++){
+		checkgroup[i].onclick=function(){
+		var checkedcount=0
+		for (var i=0; i<checkgroup.length; i++)
+			checkedcount+=(checkgroup[i].checked)? 1 : 0
+		subm = document.getElementById('sub');
+		if (checkedcount>limit){
+			alert("Solo puedes elegir un maximo de "+limit+" articulos")
+			this.checked=false
+			}
+		if (checkedcount==limit){
+			subm.hidden = false
+			}
+		if (checkedcount<limit){
+			subm.hidden = true
+			}
+		
+		
+		}
+	}
+}
+
+</script>
+{% endblock %}
+
+
+{% block content %}
+<br>
+
+<h1 class="title">Lista de Articulos</h1>
+
+<br>
+{% if articulos %}
+	<table class="table table-hover">
+		<theader>
+			<tr>
+				<td>Titulo</td>
+				<td>Promedio</td>
+				<td>Estado</td>
+			</tr>
+		</theader>
+	{% for p in articulos %}
+		<tbody>
+			<tr>
+				<td>{{p.titulo}}</td>
+				<td>{{p.calcular_promedio}}</td>
+				<td>{{p.status}}</td>						
+			</tr>
+		</tbody>
+
+	{% endfor %}
+	</table>
+	<br>
+	Presidente. Elige los {{n_por_decidir}} articulo(s) a aceptar de la lista de empatados
+	<br>
+	<form id="desempate" action="{% url 'vista_seleccion_articulo_desempate_escogencia' %}" method="POST">
+	{% csrf_token %}
+	{% for p in articulos %}
+		{% if p.status = 'POR DECIDIR' %}
+			<input type="checkbox" name="empatados" value="{{ p }}">{{ p.titulo }}
+			<br>
+		{% endif %}
+	{% endfor %}
+	<input id="sub" hidden="true" name="enviar" type="submit" value="Enviar">
+	</form>
+	
+	<script type="text/javascript">
+
+	//Syntax: checkboxlimit(checkbox_reference, limit)
+		checkboxlimit(document.forms.desempate.empatados, {{n_por_decidir}})
+
+	</script>
+	
+{% endif %}
+
+{% endblock %}
+
+
+
