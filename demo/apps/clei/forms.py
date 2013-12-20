@@ -4,20 +4,18 @@ Created on 14/12/2013
 @author: HP
 '''
 from django import forms
-from django.contrib import admin
 from django.forms.widgets import HiddenInput
-from django.template.loader import render_to_string 
 
 from demo.apps.clei.models import MiembroCP, Articulo, Evaluacion, Topico, Autor
 
 
-class RegistrarMiembroCP(forms.ModelForm):
+class RegistrarMiembroCPForm(forms.ModelForm):
     '''
     Clase para formulario de miembro de CP
     '''
     
     def __init__(self, *args, **kwargs):
-        super(RegistrarMiembroCP, self).__init__(*args, **kwargs)
+        super(RegistrarMiembroCPForm, self).__init__(*args, **kwargs)
         # Verifico si ya el presidente esta
         # agregado a la base de datos
         for cp in MiembroCP.objects.all():
@@ -32,20 +30,24 @@ class RegistrarMiembroCP(forms.ModelForm):
         return self.cleaned_data
 
 
-class RegistrarTopico(forms.ModelForm):
+class RegistrarTopicoForm(forms.ModelForm):
     '''
     Clase para formulario de registro de topico
     '''
+    error_css_class = 'error'
+    required_css_class = 'required'
     class Meta:
         model = Topico
               
-  
+    # Validacion del campo nombre
     def clean_nombre(self):
         nombre_topico = self.cleaned_data['nombre']
         # No debe haber 2 topicos con un mismo nombre
         for topico in Topico.objects.all():
             if topico.nombre == nombre_topico:
                 raise forms.ValidationError(u'Nombre de topico ya existe')
+            
+        return nombre_topico
 
     def clean(self):
         return self.cleaned_data
@@ -78,6 +80,7 @@ class RegistrarArticuloForm(forms.ModelForm):
         model = Articulo
         exclude = ('status',)
 
+    # Validacion del campo titulo
     def clean_titulo(self):
         titulo_articulo = self.cleaned_data['titulo']
         # No debe haber 2 articulos con un mismo titulo
@@ -97,8 +100,21 @@ class RegistrarEvaluacionForm(forms.ModelForm):
     '''
     class Meta:
         model = Evaluacion
-        
+      
+    # Validacion del formulario  
     def clean(self):
+        # los topicos del miembro del cp y los del articulo deben coincidir
+        cp = self.cleaned_data.get('miembro_cp')
+        articulo = self.cleaned_data.get('articulo')
+        nota = self.cleaned_data.get('nota')
+        evaluacion = Evaluacion(miembro_cp = cp,
+                          articulo = articulo,
+                          nota = nota)
+        if not evaluacion.coinciden_topicos():
+            raise forms.ValidationError(u'Los topicos no coinciden')
+        # Ahora verificamos que la evaluacion no este repetida
+        if evaluacion.existe_evaluacion():
+            raise forms.ValidationError(u'Ya la evaluacion existe') 
         
         return self.cleaned_data
        

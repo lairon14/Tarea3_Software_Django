@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %} Agregar Articulo {% endblock %}
+{% block title %} Registrar Articulo {% endblock %}
 
 {% block content %}
 	<br>
-	<h3> Registrar Articulos </h3>
+	<h1> Registrar Articulo </h1>
 	<br>
 		{{ informacion }}
 	<br>
@@ -14,8 +14,8 @@
 		<input type="submit" value="Registrar">
 		<input type="reset" value="Limpiar">
 	</form>
-	
-	<a href="/"> Regresar </a>
-	<a href={% url 'vista_registrar_topico' %}>Agregar Tópico</a>
-	<a href={% url 'vista_registrar_autor' %}>Agregar Autor</a>
+	<br>
+	<a class="btn btn-primary" href="/"> Regresar </a>
+	<a class="btn btn-primary" href={% url 'vista_registrar_topico' %}>Agregar Tópico</a>
+	<a class="btn btn-primary" href={% url 'vista_registrar_autor' %}>Agregar Autor</a>
 {% endblock %}

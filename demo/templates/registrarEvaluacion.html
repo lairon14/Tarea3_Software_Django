@@ -3,15 +3,15 @@
 
 {% block content %}
 	<br>
-	<h3> Registrar Evaluacion </h3>
+	<h1> Registrar Evaluacion </h1>
+	<br>
+		{{ informacion }}
+	<br>
 	<form action="." method="POST" encType="multipart/form-data">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" value="Registrar">
 		<input type="reset" value="Limpiar">
 	</form>
-	<br>
-		{{ informacion }}
-	<br>
-	<a href="/"> Regresar </a>
+	<a class="btn btn-primary" href="/"> Regresar </a>
 {% endblock %}

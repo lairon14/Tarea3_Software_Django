@@ -1,9 +1,12 @@
 {% extends "base.html" %}
-{% block title %} Agregar Miembro CP {% endblock %}
+{% block title %} Registrar Miembro CP {% endblock %}
 
 {% block content %}
 	<br>
-	<h3> Agregar Miembro CP </h3>
+	<h1> Registrar Miembro CP </h1>
+	<br>
+		{{ informacion }}
+	<br>
 	<form action="." method="POST" encType="multipart/form-data">
 		{% csrf_token %}
 		{{ form.as_p }}
@@ -11,8 +14,7 @@
 		<input type="reset" value="Limpiar">
 	</form>
 	<br>
-		{{ informacion }}
 	<br>
-	<a href="/"> Regresar </a>
-	<a href={% url 'vista_registrar_topico' %}>Agregar Tópico</a>
+	<a class="btn btn-primary" href="/"> Regresar </a>
+	<a class="btn btn-primary" href={% url 'vista_registrar_topico' %}>Agregar Tópico</a>
 {% endblock %}
