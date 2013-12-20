@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-
+SETTINGS_ROOT = os.path.dirname(__file__)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -24,6 +24,16 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
+
+MEDIA_ROOT = os.path.join(SETTINGS_ROOT, "media/")
+
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(SETTINGS_ROOT, "static/")
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
+STATIC_URL = '/static/'
 
 
 # Application definition
@@ -57,7 +67,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 
-DIRNAME = os.path.join(os.path.dirname(__file__))
+
 #MEDIA_ROOT = os.path.normpath(os.path.join(DIRNAME, 'media/'))
 
                 
@@ -69,7 +79,7 @@ WSGI_APPLICATION = 'demo.wsgi.application'
 
 
 TEMPLATE_DIRS = (
-                os.path.join(DIRNAME, 'templates/'),
+                os.path.join(SETTINGS_ROOT, 'templates/'),
                 )
 
 
@@ -109,7 +119,4 @@ STATICFILES_FINDERS = (
 
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/media/'
