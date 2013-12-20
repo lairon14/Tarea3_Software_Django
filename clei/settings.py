@@ -30,7 +30,7 @@ MEDIA_ROOT = os.path.join(SETTINGS_ROOT, "media/")
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (
-                    'C:/zerk20/workspace/demo/demo/static',
+                    'C:/zerk20/workspace/demo/clei/static',
                     )
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
@@ -47,8 +47,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    'demo.apps.clei',
-    'demo.apps.SeleccionArticulos',
+    'clei.apps.clei',
+    'clei.apps.SeleccionArticulos',
 )
 
 TEMPLATE_LOADERS = (
@@ -74,13 +74,14 @@ MIDDLEWARE_CLASSES = (
                 
 #MEDIA_URL = '/media/'
 
-ROOT_URLCONF = 'demo.urls'
+ROOT_URLCONF = 'clei.urls'
 
-WSGI_APPLICATION = 'demo.wsgi.application'
+WSGI_APPLICATION = 'clei.wsgi.application'
 
 
 TEMPLATE_DIRS = (
                 os.path.join(SETTINGS_ROOT, 'templates/'),
+                os.path.join(SETTINGS_ROOT, 'templates/clei/'),
                 )
 
 

@@ -6,7 +6,7 @@ Created on 14/12/2013
 from django import forms
 from django.forms.widgets import HiddenInput
 
-from demo.apps.clei.models import MiembroCP, Articulo, Evaluacion, Topico, Autor
+from clei.apps.clei.models import MiembroCP, Articulo, Evaluacion, Topico, Autor
 
 
 class RegistrarMiembroCPForm(forms.ModelForm):

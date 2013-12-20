@@ -1,11 +1,11 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from demo.apps.clei.forms import RegistrarMiembroCPForm, RegistrarArticuloForm
-from demo.apps.clei.forms import RegistrarEvaluacionForm, RegistrarTopicoForm
-from demo.apps.clei.forms import RegistrarAutorForm
+from clei.apps.clei.forms import RegistrarMiembroCPForm, RegistrarArticuloForm
+from clei.apps.clei.forms import RegistrarEvaluacionForm, RegistrarTopicoForm
+from clei.apps.clei.forms import RegistrarAutorForm
 
-from demo.apps.clei.models import Evaluacion, Topico, Autor
+from clei.apps.clei.models import Evaluacion, Topico, Autor
 
 def index_view(request):
     return render_to_response('index.html',

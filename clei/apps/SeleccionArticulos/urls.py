@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns = patterns('demo.apps.SeleccionArticulos.views',
+urlpatterns = patterns = patterns('clei.apps.SeleccionArticulos.views',
         url(r'^seleccionarticulo/$', 'index_seleccionar_articulos_view', name='vista_index_seleccion_articulo'),
         url(r'^seleccionarticulo/topico/$', 'seleccionar_articulos_topico_view', name='vista_seleccion_articulo_topico'),
         url(r'^seleccionarticulo/cortes/$', 'seleccionar_articulos_cortes_view', name='vista_seleccion_articulo_cortes'),

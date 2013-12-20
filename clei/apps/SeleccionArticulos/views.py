@@ -2,11 +2,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 
-from demo.apps.clei.models import Articulo
+from clei.apps.clei.models import Articulo
 
-from demo.apps.SeleccionArticulos.forms import NForm, CortesForm, MinPForm
-from demo.apps.SeleccionArticulos.models import ArticuloPorcentaje, ArticuloPaisesDesempate
-from demo.apps.SeleccionArticulos.models import ArticuloTopico, ArticuloCortes, ArticuloDesempate
+from clei.apps.SeleccionArticulos.forms import NForm, CortesForm, MinPForm
+from clei.apps.SeleccionArticulos.models import ArticuloPorcentaje, ArticuloPaisesDesempate
+from clei.apps.SeleccionArticulos.models import ArticuloTopico, ArticuloCortes, ArticuloDesempate
 
 def index_seleccionar_articulos_view(request):
     return render_to_response('seleccionarArticulos.html',

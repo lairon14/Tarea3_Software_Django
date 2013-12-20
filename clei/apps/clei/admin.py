@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from demo.apps.clei.models import Persona, Autor, MiembroCP, Topico, Articulo, Evaluacion
+from clei.apps.clei.models import Persona, Autor, MiembroCP, Topico, Articulo, Evaluacion
 
 admin.site.register(Persona)
 admin.site.register(Autor)

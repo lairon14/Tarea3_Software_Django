@@ -1,6 +1,4 @@
-from django.db import models
-
-from demo.apps.clei.models import Articulo, Topico, Persona, Autor
+from clei.apps.clei.models import Articulo, Topico,  Autor
 
 class ComoSeleccionarArticulos(object):
     
