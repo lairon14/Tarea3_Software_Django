@@ -110,11 +110,12 @@ def registrar_articulo_view(request):
             articulo.save()
             form.save_m2m()
             info = "Se guardo satisfactoriamente"
+            form = RegistrarArticuloForm()
                 
         else:
             info = "Informacion con datos incorrectos"
+            form = RegistrarArticuloForm(request.POST)
                 
-        form = RegistrarArticuloForm(request.POST)
         ctx = {"form":form, "informacion":info}
         return render_to_response('registrarArticulo.html', ctx, 
                                     context_instance = RequestContext(request))

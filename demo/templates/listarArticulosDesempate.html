@@ -64,9 +64,9 @@ function checkboxlimit(checkgroup, limit){
 	<form id="desempate" action="{% url 'vista_seleccion_articulo_desempate_escogencia' %}" method="POST">
 	{% csrf_token %}
 	{% for p in articulos %}
-			<br>
 		{% if p.status = 'POR DECIDIR' %}
 			<input type="checkbox" name="empatados" value="{{ p }}">{{ p.titulo }}
+			<br>
 		{% endif %}
 	{% endfor %}
 	<input id="sub" hidden="true" name="enviar" type="submit" value="Enviar">

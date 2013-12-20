@@ -133,6 +133,7 @@ class ArticuloPaisesDesempate(ComoSeleccionarArticulos):
             for i in range(0, self.__p):
                 try:
                     articulo_agregar = lista_articulo_del_pais.pop()
+
                     articulo_agregar.status = 'ACEPTADO'
                     lista_seleccionados.append(articulo_agregar)
                     self.get_lista_articulos().remove(articulo_agregar)
@@ -184,6 +185,7 @@ class ArticuloPaisesDesempate(ComoSeleccionarArticulos):
                             if art.pertenece_a_pais(pais):
                                 art.status = 'ACEPTADO ESPECIAL'
                                 lista_seleccionados.append(art)
+                                lista_restantes_empatados.remove(art)
                                 num_articulos_por_elegir -= 1
                                 if num_articulos_por_elegir == 0:
                                     break
