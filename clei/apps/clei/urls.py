@@ -7,6 +7,14 @@ urlpatterns = patterns = patterns('clei.apps.clei.views',
         url(r'^registrar/evaluacion/$', 'registrar_evaluacion_view', name="vista_registrar_evaluacion"),
         url(r'^registrar/topico/$', 'registrar_topico_view', name='vista_registrar_topico'),
         url(r'^registrar/autor/$', 'registrar_autor_view', name='vista_registrar_autor'),
+        url(r'^registrar/lugar/$', 'registrar_lugar_view', name="vista_registrar_lugar"),
+        url(r'^registrar/taller/$', 'registrar_taller_view', name="vista_registrar_taller"), 
+        url(r'^registrar/eventoSocial/$', 'registrar_evento_social_view', name="vista_registrar_evento_social"),
+        url(r'^registrar/apertura/$', 'registrar_apertura_view', name="vista_registrar_apertura"), 
+        url(r'^registrar/clausura/$', 'registrar_clausura_view', name="vista_registrar_clausura"),
+        url(r'^registrar/charlasInvitadas/$', 'registrar_charlasInvitadas_view', name="vista_registrar_charlasInvitadas"),
+        url(r'^registrar/charlistaInvitado/$', 'registrar_charlista_view', name="vista_registrar_charlista"),
+        url(r'^registrar/sesionesPonencia/$', 'registrar_sesionesPonencia_view', name="vista_registrar_sesionesPonencia"),
         )
 
 

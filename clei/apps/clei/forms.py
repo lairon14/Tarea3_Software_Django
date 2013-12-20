@@ -7,7 +7,8 @@ from django import forms
 from django.forms.widgets import HiddenInput
 
 from clei.apps.clei.models import MiembroCP, Articulo, Evaluacion, Topico, Autor
-
+from clei.apps.clei.models import Lugar, Taller, Eventos_Sociales, Apertura, Clausura
+from clei.apps.clei.models import Charlas_Invitadas, CharlistaInvitado, Sesiones_Ponencia
 
 class RegistrarMiembroCPForm(forms.ModelForm):
     '''
@@ -116,6 +117,94 @@ class RegistrarEvaluacionForm(forms.ModelForm):
         if evaluacion.existe_evaluacion():
             raise forms.ValidationError(u'Ya la evaluacion existe') 
         
+        return self.cleaned_data
+    
+class RegistrarLugar(forms.ModelForm): 
+    ''' 
+    Clase para formulario de Lugar 
+    '''
+    class Meta: 
+        model = Lugar
+          
+      
+    def clean(self): 
+        return self.cleaned_data
+        
+class RegistrarTaller(forms.ModelForm): 
+    ''' 
+    Clase para formulario de taller 
+    '''
+    class Meta: 
+        model = Taller
+          
+      
+    def clean(self): 
+        return self.cleaned_data
+    
+class Registrar_Eventos_Sociales(forms.ModelForm): 
+    ''' 
+    Clase para formulario de evento social 
+    '''
+    class Meta: 
+        model = Eventos_Sociales
+          
+      
+    def clean(self): 
+        return self.cleaned_data
+
+class RegistrarApertura(forms.ModelForm): 
+    ''' 
+    Clase para formulario de Apertura 
+    '''
+    class Meta: 
+        model = Apertura
+          
+      
+    def clean(self): 
+        return self.cleaned_data
+    
+class RegistrarClausura(forms.ModelForm): 
+    ''' 
+    Clase para formulario de clausura 
+    '''
+    class Meta: 
+        model = Clausura
+          
+      
+    def clean(self): 
+        return self.cleaned_data
+    
+class RegistrarCharlistaInvitado(forms.ModelForm):
+    '''
+    Clase para formulario de miembro de CP
+    '''
+    class Meta:
+        model = CharlistaInvitado
+        
+    
+    def clean(self):
+        return self.cleaned_data
+    
+class RegistrarCharlasInvitadas(forms.ModelForm): 
+    ''' 
+    Clase para formulario de clausura 
+    '''
+    class Meta: 
+        model = Charlas_Invitadas
+          
+      
+    def clean(self): 
+        return self.cleaned_data
+    
+class RegistrarSesionesPonencia(forms.ModelForm): 
+    ''' 
+    Clase para formulario de clausura 
+    '''
+    class Meta: 
+        model = Sesiones_Ponencia
+          
+      
+    def clean(self): 
         return self.cleaned_data
        
     
