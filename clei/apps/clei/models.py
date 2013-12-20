@@ -1,5 +1,7 @@
 from django.db import models
 
+from datetime import datetime
+
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Persona(models.Model):
@@ -102,6 +104,181 @@ class Evaluacion(models.Model):
         repetido = Evaluacion.objects.filter(miembro_cp=self.miembro_cp,
                                              articulo=self.articulo)
         return len(repetido) > 0
+    
+    
+    
+class Lugar(models.Model):
+    nombre = models.CharField( max_length = 100)
+    ubicacion = models.CharField( max_length = 250)
+    capacidad = models.PositiveIntegerField( default = 0)
         
+    def __unicode__(self):
+        return "%s %s %i" % (self.nombre, self.ubicacion, self.capacidad)
+    
+class Evento(models.Model):
+    duracion = models.TimeField() #HH:MM:SS
+    fecha = models.DateField() # YYYY-MM-DD
+    hora_inicio = models.TimeField() # HH:MM:SS
+    lugar = models.ForeignKey(Lugar)
+    
+    def HoraFin(self, inicio, duracion):
+
+        segundos = inicio.second + duracion.second
+        minutos = inicio.minute + duracion.minute
+        hora = inicio.hour + duracion.hour
+        if segundos > 59:
+            segundos = segundos - 60
+            minutos += 1
+        if minutos > 59:
+            minutos = minutos - 60
+            hora += 1
+        if hora > 23:
+            hora = hora - 24
+      
+        return datetime.strptime(str(hora)+":"+str(minutos)+":"+str(segundos), "%H:%M:%S").time()
+   
+
+    def __unicode__(self):
+        return "%s %s %s %s" % (self.duracion, self.fecha, self.hora_inicio, self.lugar)
+    
+class Taller(Evento):
+    nombre = models.CharField( max_length = 30)
+    
+    def obtener_segunda_fecha(self, fecha):
+        
+        DiasPorMes = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        dia = fecha.day + 1
+        mes = fecha.month
+        ano = fecha.year
+        #numero de dias que tiene el mes 'mes'
+        aux = DiasPorMes[mes]
+        #si dias es mayor que dias por mes actual
+        if aux >= dia:
+            return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+        else:
+            if aux == 30:
+                dia -= 30
+                mes += 1
+            elif aux == 31:
+                dia -= 31
+                if mes == 12:
+                    ano += 1
+                    mes = 1
+                else:
+                    mes += 1
+            else:
+                dia -= 28
+                mes += 1
+        return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+    
+    def __unicode__(self):
+        return "%s" % (self.nombre)
+    
+class Eventos_Sociales(Evento):
+    nombre = models.CharField( max_length = 30)
+    
+    def __unicode__(self):
+        return "%s" % (self.nombre)
+
+class Apertura(Evento):
+    nombre = models.CharField( max_length = 30)
+    
+    def obtener_fecha(self, fecha):
+        
+        DiasPorMes = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        
+        dia = fecha.day + 4
+        mes = fecha.month
+        ano = fecha.year
+        
+        #numero de dias que tiene el mes 'mes'
+        aux = DiasPorMes[mes]
+        
+        #si dias es mayor que dias por mes actual
+        if aux >= dia:
+            return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+        else:
+            if aux == 30:
+                dia -= 30
+                mes += 1
+            elif aux == 31:
+                dia -= 31
+                if mes == 12:
+                    ano += 1
+                    mes = 1
+                else:
+                    mes += 1
+            else:
+                dia -= 28
+                mes += 1
+                    
+                
+        return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+    
+    def __unicode__(self):
+        return "%s" % (self.nombre)
+
+class Clausura(Evento):
+    nombre = models.CharField( max_length = 30)
+    
+    
+    
+    def __unicode__(self):
+        return "%s" % (self.nombre) 
+        
+class CharlistaInvitado(Persona):
+    curriculum = models.CharField( max_length = 100 )
+        
+    def __unicode__(self):
+        return "%s" % (self.curriculum)
+    
+
+class Charlas_Invitadas(Evento):
+    nombre = models.CharField( max_length = 30)
+    resumen = models.CharField( max_length = 255)
+    charlista = models.ForeignKey(CharlistaInvitado)
+    cp = models.ForeignKey(MiembroCP)
+    topico = models.ForeignKey(Topico)
+        
+    def __unicode__(self):
+        return "%s %s %s %s" % (self.nombre, self.resumen, self.charlista, self.cp)
+    
+class Sesiones_Ponencia(Evento):
+    nombre = models.CharField( max_length = 30)
+    resumen = models.CharField( max_length = 255)
+    articulo = models.ForeignKey(Articulo)
+    cp = models.ForeignKey(MiembroCP)
+    
+    def obtener_fecha_ponencia(self, fecha,aux):
+        
+        DiasPorMes = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        dia = fecha.day + aux
+        mes = fecha.month
+        ano = fecha.year
+        #numero de dias que tiene el mes 'mes'
+        aux = DiasPorMes[mes]
+        #si dias es mayor que dias por mes actual
+        if aux >= dia:
+            return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+        else:
+            if aux == 30:
+                dia -= 30
+                mes += 1
+            elif aux == 31:
+                dia -= 31
+                if mes == 12:
+                    ano += 1
+                    mes = 1
+                else:
+                    mes += 1
+            else:
+                dia -= 28
+                mes += 1
+        return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+    
+    def __unicode__(self):
+        return "%s %s %s %s" % (self.nombre, self.resumen, self.articulo, self.cp)
+    
+
 
     
