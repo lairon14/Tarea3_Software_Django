@@ -43,11 +43,9 @@ class RegistrarTopico(forms.ModelForm):
     def clean_nombre(self):
         nombre_topico = self.cleaned_data['nombre']
         # No debe haber 2 topicos con un mismo nombre
-        try:
-            topico = Topico.objects.get(nombre=nombre_topico)
-        except:
-            return nombre_topico        
-        raise forms.ValidationError("Nombre de topico ya existe")
+        for topico in Topico.objects.all():
+            if topico.nombre == nombre_topico:
+                raise forms.ValidationError(u'Nombre de topico ya existe')
 
     def clean(self):
         return self.cleaned_data
@@ -85,7 +83,6 @@ class RegistrarArticuloForm(forms.ModelForm):
         # No debe haber 2 articulos con un mismo titulo
         for art in Articulo.objects.all():
             if art.titulo == titulo_articulo:
-                self._errors['title'] = ['Invalid date given.']
                 raise forms.ValidationError(u'El titulo del articulo ya existe')
         return titulo_articulo
 

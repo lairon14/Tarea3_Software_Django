@@ -29,8 +29,9 @@ MEDIA_ROOT = os.path.join(SETTINGS_ROOT, "media/")
 
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(SETTINGS_ROOT, "static/")
-
+STATICFILES_DIRS = (
+                    'C:/zerk20/workspace/demo/demo/static',
+                    )
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 STATIC_URL = '/static/'
