@@ -7,9 +7,10 @@ Created on 14/12/2013
 from django import forms
 from django.forms.widgets import HiddenInput
 
-from clei.apps.clei.models import MiembroCP, Articulo, Evaluacion, Topico, Autor
-from clei.apps.clei.models import Lugar, Taller, Eventos_Sociales, Apertura, Clausura
-from clei.apps.clei.models import Charlas_Invitadas, CharlistaInvitado, Sesiones_Ponencia
+from clei.apps.clei.models import Charlas_Invitadas, CharlistaInvitado, \
+    Sesiones_Ponencia, Lugar, Taller, Eventos_Sociales, Apertura, Clausura, \
+    MiembroCP, Articulo, Evaluacion, Topico, Autor
+
 
 class RegistrarMiembroCPForm(forms.ModelForm):
     '''
@@ -109,9 +110,9 @@ class RegistrarEvaluacionForm(forms.ModelForm):
         cp = self.cleaned_data.get('miembro_cp')
         articulo = self.cleaned_data.get('articulo')
         nota = self.cleaned_data.get('nota')
-        evaluacion = Evaluacion(miembro_cp = cp,
-                          articulo = articulo,
-                          nota = nota)
+        evaluacion = Evaluacion(miembro_cp=cp,
+                          articulo=articulo,
+                          nota=nota)
         if not evaluacion.coinciden_topicos():
             raise forms.ValidationError(u'Los topicos no coinciden')
         # Ahora verificamos que la evaluacion no este repetida

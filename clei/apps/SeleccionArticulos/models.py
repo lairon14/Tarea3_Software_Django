@@ -1,5 +1,5 @@
+from clei.apps.clei.models import Articulo, Topico, Autor
 
-from clei.apps.clei.models import Articulo, Topico,  Autor
 
 class ComoSeleccionarArticulos(object):
     
@@ -127,7 +127,7 @@ class ArticuloPaisesDesempate(ComoSeleccionarArticulos):
         for pais in self.__lista_paises:
             lista_articulo_del_pais = [art for art in self.get_lista_articulos() if art.pertenece_a_pais(pais)]  
             lista_articulo_del_pais = sorted(lista_articulo_del_pais,
-                                              key = lambda x: x.calcular_promedio()
+                                              key=lambda x: x.calcular_promedio()
                                                )
             for i in range(0, self.__p):
                 try:
@@ -232,7 +232,7 @@ class ArticuloCortes(ComoSeleccionarArticulos):
         self.__lista_paises = lista_paises
             
     def seleccionar_articulos(self):
-        #lista_promedios_aceptables = []
+        # lista_promedios_aceptables = []
         self.set_lista_articulos(sorted(self.get_lista_articulos(),
                                    key=lambda x: x.calcular_promedio(),
                                    reverse=True))            
@@ -267,19 +267,19 @@ class ArticuloCortes(ComoSeleccionarArticulos):
                     if k.pais == pais:
                         encontrado = True
                         break
-                if encontrado and len(lista_promedios_aceptables)>0:
+                if encontrado and len(lista_promedios_aceptables) > 0:
                     aux.status = 'ACEPTADO ESPECIAL'
                     lista_seleccionados.append(aux)
                     lista_promedios_aceptables.remove(aux)
                 else:
-                    articulo+=1
+                    articulo += 1
             tope += 1
         
         interseccion = list(set(self.get_lista_articulos()) - set(lista_seleccionados))
         if len(lista_seleccionados) == self.get_num_articulos_aceptar():       
             
             for art in interseccion:
-                if art.calcular_promedio()>=self.__n2:
+                if art.calcular_promedio() >= self.__n2:
                     art.status = 'RECHAZADO POR FALTA DE CUPO'
                 else:
                     art.status = 'RECHAZADO POR FALTA DE PROMEDIO'
@@ -313,11 +313,11 @@ class ArticuloPorcentaje(ComoSeleccionarArticulos):
         else:    
             ochenta_por_ciento = self.get_num_articulos_aceptar() * 80 / 100
         veinte_por_ciento = self.get_num_articulos_aceptar() - ochenta_por_ciento
-        #self.set_lista_articulos(sorted(self.get_lista_articulos(),
+        # self.set_lista_articulos(sorted(self.get_lista_articulos(),
         #                       key=lambda x: x.calcular_promedio()))   
         
         
-        matriz_paises = [] # matriz que, por cada pais, guarda los articulos enviados
+        matriz_paises = []  # matriz que, por cada pais, guarda los articulos enviados
         for pais in self.__lista_paises:
             lista_articulos_por_pais = []
             for art in self.get_lista_articulos():
@@ -408,7 +408,7 @@ class ArticuloTopico(ComoSeleccionarArticulos):
                                 lista_seleccionados.append(mejor_articulo_topico)
                                 break
                             continue
-                        except: # Entra aqui si ya recorrimos todo los 
+                        except:  # Entra aqui si ya recorrimos todo los 
                                 # articulos del topico
                             matriz_topicos.remove(tupla)
                             break

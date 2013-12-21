@@ -2,22 +2,18 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from clei.apps.clei.forms import RegistrarMiembroCPForm, RegistrarArticuloForm
-from clei.apps.clei.forms import RegistrarEvaluacionForm, RegistrarTopicoForm
-from clei.apps.clei.forms import RegistrarAutorForm, RegistrarLugar
-from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura
-from clei.apps.clei.forms import Registrar_Eventos_Sociales, RegistrarCharlasInvitadas
-from clei.apps.clei.forms import RegistrarCharlistaInvitado, RegistrarSesionesPonencia
-from clei.apps.clei.forms import RegistrarTaller
-
-from clei.apps.clei.models import MiembroCP, Articulo, Evaluacion, Topico, Autor
-from clei.apps.clei.models import Evento, Taller, Apertura, Clausura
-from clei.apps.clei.models import Sesiones_Ponencia
+from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
+    RegistrarAutorForm, RegistrarLugar, RegistrarCharlistaInvitado, \
+    RegistrarSesionesPonencia, RegistrarEvaluacionForm, RegistrarTopicoForm, \
+    RegistrarMiembroCPForm, RegistrarArticuloForm, RegistrarTaller, \
+    Registrar_Eventos_Sociales, RegistrarCharlasInvitadas
+from clei.apps.clei.models import Evento, Taller, Apertura, Clausura, MiembroCP, \
+    Articulo, Evaluacion, Topico, Autor, Sesiones_Ponencia
 
 
 def index_view(request):
     return render_to_response('index.html',
-                               context_instance = RequestContext(request))
+                               context_instance=RequestContext(request))
     
 
 def registrar_miembroCP_view(request):
@@ -31,7 +27,7 @@ def registrar_miembroCP_view(request):
             cp.institucion = form.cleaned_data["institucion"]
             cp.pais = form.cleaned_data["pais"]
             cp.save()
-            form.save_m2m() # Se guardan los atributod manytomany
+            form.save_m2m()  # Se guardan los atributod manytomany
             info = "Se guardo satisfactoriamente"
             form = RegistrarMiembroCPForm()
         else:
@@ -39,14 +35,14 @@ def registrar_miembroCP_view(request):
             form = RegistrarMiembroCPForm(request.POST)
                 
         ctx = {"form":form, "informacion":info}
-        return render_to_response('registrarMiembroCP.html', ctx, 
-                                    context_instance = RequestContext(request))
+        return render_to_response('registrarMiembroCP.html', ctx,
+                                    context_instance=RequestContext(request))
         # Si el request es un GET    
     else:
         form = RegistrarMiembroCPForm()
         ctx = {"form":form}
-        return render_to_response('registrarMiembroCP.html', ctx, 
-                                       context_instance = RequestContext(request))
+        return render_to_response('registrarMiembroCP.html', ctx,
+                                       context_instance=RequestContext(request))
 
 
 
@@ -65,14 +61,14 @@ def registrar_topico_view(request):
             form = RegistrarTopicoForm(request.POST)
         
         ctx = {"form":form, "informacion":info}
-        return render_to_response('registrarTopico.html', ctx, 
-                                    context_instance = RequestContext(request))
+        return render_to_response('registrarTopico.html', ctx,
+                                    context_instance=RequestContext(request))
         # Si el request es un GET    
     else:
         form = RegistrarTopicoForm()
         ctx = {"form":form}
-        return render_to_response('registrarTopico.html', ctx, 
-                                       context_instance = RequestContext(request))
+        return render_to_response('registrarTopico.html', ctx,
+                                       context_instance=RequestContext(request))
 
 
 def registrar_autor_view(request):
@@ -93,14 +89,14 @@ def registrar_autor_view(request):
                 
         form = RegistrarAutorForm()
         ctx = {"form":form, "informacion":info}
-        return render_to_response('registrarAutor.html', ctx, 
-                                    context_instance = RequestContext(request))
+        return render_to_response('registrarAutor.html', ctx,
+                                    context_instance=RequestContext(request))
         # Si el request es un GET    
     else:
         form = RegistrarAutorForm()
         ctx = {"form":form}
-        return render_to_response('registrarAutor.html', ctx, 
-                                       context_instance = RequestContext(request))
+        return render_to_response('registrarAutor.html', ctx,
+                                       context_instance=RequestContext(request))
             
     
 def registrar_articulo_view(request):
@@ -125,18 +121,18 @@ def registrar_articulo_view(request):
             form = RegistrarArticuloForm(request.POST)
                 
         ctx = {"form":form, "informacion":info}
-        return render_to_response('registrarArticulo.html', ctx, 
-                                    context_instance = RequestContext(request))
+        return render_to_response('registrarArticulo.html', ctx,
+                                    context_instance=RequestContext(request))
         # Si el request es un GET    
     else:
         form = RegistrarArticuloForm()
         ctx = {"form":form}
-        return render_to_response('registrarArticulo.html', ctx, 
-                                    context_instance = RequestContext(request))
+        return render_to_response('registrarArticulo.html', ctx,
+                                    context_instance=RequestContext(request))
             
     
 def registrar_evaluacion_view(request): 
-    if request.method == 'POST': # Si la request es POST
+    if request.method == 'POST':  # Si la request es POST
         form = RegistrarEvaluacionForm(request.POST)
         if form.is_valid():
             nueva_eval = Evaluacion()
@@ -152,14 +148,14 @@ def registrar_evaluacion_view(request):
             form = RegistrarEvaluacionForm(request.POST)
                 
         ctx = {"form":form, "informacion":info}
-        return render_to_response('registrarEvaluacion.html', ctx, 
-                                    context_instance = RequestContext(request))
+        return render_to_response('registrarEvaluacion.html', ctx,
+                                    context_instance=RequestContext(request))
         # Si el request es un GET    
     else:
         form = RegistrarEvaluacionForm()
         ctx = {"form":form}
-        return render_to_response('registrarEvaluacion.html', ctx, 
-                                    context_instance = RequestContext(request))
+        return render_to_response('registrarEvaluacion.html', ctx,
+                                    context_instance=RequestContext(request))
         
         
 def registrar_lugar_view(request):
@@ -181,14 +177,14 @@ def registrar_lugar_view(request):
             form = RegistrarLugar(request.POST)
              
         ctx = {"form":form, "informacion":info}
-        return render_to_response('RegistrarLugar.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarLugar.html', ctx,
+                                   context_instance=RequestContext(request))
     # Si el request es un GET    
     else:
         form = RegistrarLugar()
         ctx = {"form":form}
-        return render_to_response('RegistrarLugar.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarLugar.html', ctx,
+                                   context_instance=RequestContext(request))
              
 
 def registrar_taller_view(request):
@@ -214,12 +210,12 @@ def registrar_taller_view(request):
                 
                 lista_evento = Evento.objects.all()
                 flag = 0
-                #para cada evento verifico que taller a registrar tenga
-                #horas, lugar y fecha disponible para registrarse
+                # para cada evento verifico que taller a registrar tenga
+                # horas, lugar y fecha disponible para registrarse
                 for evento in lista_evento:
-                    #si ya existe un evento en la misma fecha
-                    if evento.fecha  == taller.fecha:
-                        #si ya existe un evento en el mismo lugar
+                    # si ya existe un evento en la misma fecha
+                    if evento.fecha == taller.fecha:
+                        # si ya existe un evento en el mismo lugar
                         if evento.lugar == taller.lugar:
                             hora_fin_evento = Evento().HoraFin(evento.hora_inicio, evento.duracion)
                             if evento.hora_inicio < taller.hora_inicio and taller.hora_inicio < hora_fin_evento:
@@ -232,21 +228,21 @@ def registrar_taller_view(request):
                     info = "Se guardo satisfactoriamente %s" % evento
                     form = RegistrarTaller()
             else:
-                info = "Los talleres se realizan los primeros dos dias de la Conferencia. Le sugerimos %s o %s" % (fecha_apertura,fecha)  
+                info = "Los talleres se realizan los primeros dos dias de la Conferencia. Le sugerimos %s o %s" % (fecha_apertura, fecha)  
                 form = RegistrarTaller(request.POST)
         else:
             info = "Informacion con datos incorrectos o introduzca primero el evento apertura "
             form = RegistrarTaller(request.POST)
              
         ctx = {"form":form, "informacion":info}
-        return render_to_response('RegistrarTaller.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarTaller.html', ctx,
+                                   context_instance=RequestContext(request))
     # Si el request es un GET    
     else:
         form = RegistrarTaller()
         ctx = {"form":form}
-        return render_to_response('RegistrarTaller.html', ctx, 
-                                   context_instance = RequestContext(request))  
+        return render_to_response('RegistrarTaller.html', ctx,
+                                   context_instance=RequestContext(request))  
 
 
 def registrar_evento_social_view(request):
@@ -268,12 +264,12 @@ def registrar_evento_social_view(request):
                 
                 lista_evento = Evento.objects.all()
                 flag = 0
-                #para cada evento verifico que taller a registrar tenga
-                #horas, lugar y fecha disponible para registrarse
+                # para cada evento verifico que taller a registrar tenga
+                # horas, lugar y fecha disponible para registrarse
                 for evento in lista_evento:
-                    #si ya existe un evento en la misma fecha
-                    if evento.fecha  == eventos_Sociales.fecha:
-                        #si ya existe un evento en el mismo lugar
+                    # si ya existe un evento en la misma fecha
+                    if evento.fecha == eventos_Sociales.fecha:
+                        # si ya existe un evento en el mismo lugar
                         hora_fin_evento = Evento().HoraFin(evento.hora_inicio, evento.duracion)
                         if evento.hora_inicio < eventos_Sociales.hora_inicio and eventos_Sociales.hora_inicio < hora_fin_evento:
                             flag = 1
@@ -295,14 +291,14 @@ def registrar_evento_social_view(request):
              
         
         ctx = {"form":form, "informacion":info}
-        return render_to_response('RegistrarEventosSociales.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarEventosSociales.html', ctx,
+                                   context_instance=RequestContext(request))
     # Si el request es un GET    
     else:
         form = Registrar_Eventos_Sociales()
         ctx = {"form":form}
-        return render_to_response('RegistrarEventosSociales.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarEventosSociales.html', ctx,
+                                   context_instance=RequestContext(request))
     
 
 def registrar_apertura_view(request):
@@ -324,20 +320,20 @@ def registrar_apertura_view(request):
             form.save_m2m()
             info = "Se guardo satisfactoriamente " 
             form = RegistrarApertura()
-            #print num_aperturas
+            # print num_aperturas
         else:
             info = "Informacion con datos incorrectos o ya existe un evento apertura"
             form = RegistrarApertura(request.POST)
              
         ctx = {"form":form, "informacion":info}
-        return render_to_response('RegistrarApertura.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarApertura.html', ctx,
+                                   context_instance=RequestContext(request))
     # Si el request es un GET    
     else:
         form = RegistrarApertura()
         ctx = {"form":form}
-        return render_to_response('RegistrarApertura.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarApertura.html', ctx,
+                                   context_instance=RequestContext(request))
              
     
 def registrar_clausura_view(request):
@@ -376,14 +372,14 @@ def registrar_clausura_view(request):
             form = RegistrarClausura(request.POST)
              
         ctx = {"form":form, "informacion":info}
-        return render_to_response('RegistrarClausura.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarClausura.html', ctx,
+                                   context_instance=RequestContext(request))
     # Si el request es un GET    
     else:
         form = RegistrarClausura()
         ctx = {"form":form}
-        return render_to_response('RegistrarClausura.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarClausura.html', ctx,
+                                   context_instance=RequestContext(request))
             
     
 def registrar_charlista_view(request):
@@ -407,14 +403,14 @@ def registrar_charlista_view(request):
             form = RegistrarCharlistaInvitado(request.POST)
             
         ctx = {"form":form, "informacion":info}
-        return render_to_response('RegistrarCharlistaInvitado.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarCharlistaInvitado.html', ctx,
+                                   context_instance=RequestContext(request))
     # Si el request es un GET    
     else:
         form = RegistrarCharlistaInvitado()
         ctx = {"form":form}
-        return render_to_response('RegistrarCharlistaInvitado.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarCharlistaInvitado.html', ctx,
+                                   context_instance=RequestContext(request))
             
 
 def registrar_charlasInvitadas_view(request):
@@ -447,12 +443,12 @@ def registrar_charlasInvitadas_view(request):
                 if not es_experto:
                     info = "El topico de la charla debe ser igual a la experticia del CP"
                 else:
-                    #para cada evento verifico que taller a registrar tenga
-                    #horas, lugar y fecha disponible para registrarse
+                    # para cada evento verifico que taller a registrar tenga
+                    # horas, lugar y fecha disponible para registrarse
                     for evento in lista_evento:
-                        #si ya existe un evento en la misma fecha
-                        if evento.fecha  == charlasInvitadas.fecha:
-                            #si ya existe un evento en el mismo lugar
+                        # si ya existe un evento en la misma fecha
+                        if evento.fecha == charlasInvitadas.fecha:
+                            # si ya existe un evento en el mismo lugar
                             if evento.lugar == charlasInvitadas.lugar:
                                 hora_fin_evento = Evento().HoraFin(evento.hora_inicio, evento.duracion)
                                 if evento.hora_inicio < charlasInvitadas.hora_inicio and charlasInvitadas.hora_inicio < hora_fin_evento:
@@ -473,28 +469,28 @@ def registrar_charlasInvitadas_view(request):
             form = RegistrarCharlasInvitadas(request.POST)
              
         ctx = {"form":form, "informacion":info}
-        return render_to_response('RegistrarCharlasInvitadas.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarCharlasInvitadas.html', ctx,
+                                   context_instance=RequestContext(request))
     # Si el request es un GET    
     else:
         form = RegistrarCharlasInvitadas()
         ctx = {"form":form}
-        return render_to_response('RegistrarCharlasInvitadas.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarCharlasInvitadas.html', ctx,
+                                   context_instance=RequestContext(request))
     
 def registrar_sesionesPonencia_view(request):
     num_aperturas = Apertura.objects.count()
     
     if request.method == 'POST':
         form = RegistrarSesionesPonencia(request.POST)
-        if form.is_valid() and num_aperturas !=0 :
+        if form.is_valid() and num_aperturas != 0 :
             
             fecha_apertura = Apertura.objects.values_list()[0][2]
-            fecha1 = Sesiones_Ponencia().obtener_fecha_ponencia(fecha_apertura,2)
+            fecha1 = Sesiones_Ponencia().obtener_fecha_ponencia(fecha_apertura, 2)
                 
-            fecha2 = Sesiones_Ponencia().obtener_fecha_ponencia(fecha_apertura,3)
+            fecha2 = Sesiones_Ponencia().obtener_fecha_ponencia(fecha_apertura, 3)
             
-            fecha3 = Sesiones_Ponencia().obtener_fecha_ponencia(fecha_apertura,4)
+            fecha3 = Sesiones_Ponencia().obtener_fecha_ponencia(fecha_apertura, 4)
             sesionesPonencia = form.save(commit=False)
                 
             if (fecha1 == form.cleaned_data["fecha"] or fecha2 == form.cleaned_data["fecha"] or fecha3 == form.cleaned_data["fecha"]):
@@ -511,7 +507,7 @@ def registrar_sesionesPonencia_view(request):
                 
                 id_articulo = Articulo.objects.filter(titulo=sesionesPonencia.articulo)[0].id
                 cpp = MiembroCP.objects.filter(nombre=sesionesPonencia.cp)[0].Topicos()
-                es_experto =  Articulo.objects.filter(id= id_articulo)[0].Verificar_topico(cpp)
+                es_experto = Articulo.objects.filter(id=id_articulo)[0].Verificar_topico(cpp)
                 
                 lista_evento = Evento.objects.all()
                 flag = 0
@@ -521,12 +517,12 @@ def registrar_sesionesPonencia_view(request):
                     info = "Algun topico del articulo debe ser igual a la experticia del CP"
                 else:
                     
-                    #para cada evento verifico que taller a registrar tenga
-                    #horas, lugar y fecha disponible para registrarse
+                    # para cada evento verifico que taller a registrar tenga
+                    # horas, lugar y fecha disponible para registrarse
                     for evento in lista_evento:
-                        #si ya existe un evento en la misma fecha
-                        if evento.fecha  == sesionesPonencia.fecha:
-                            #si ya existe un evento en el mismo lugar
+                        # si ya existe un evento en la misma fecha
+                        if evento.fecha == sesionesPonencia.fecha:
+                            # si ya existe un evento en el mismo lugar
                             if evento.lugar == sesionesPonencia.lugar:
                                 hora_fin_evento = Evento().HoraFin(evento.hora_inicio, evento.duracion)
                                 if evento.hora_inicio < sesionesPonencia.hora_inicio and sesionesPonencia.hora_inicio < hora_fin_evento:
@@ -540,18 +536,18 @@ def registrar_sesionesPonencia_view(request):
                         info = "Se guardo satisfactoriamente"
                         form = RegistrarSesionesPonencia()
             else:
-                info = "Las sesiones se realizan los siguientes tres dias de la Conferencia. Le sugerimos %s, %s o %s " %(fecha1,fecha2,fecha3)
+                info = "Las sesiones se realizan los siguientes tres dias de la Conferencia. Le sugerimos %s, %s o %s " % (fecha1, fecha2, fecha3)
                 form = RegistrarSesionesPonencia(request.POST)     
         else:
             info = "Informacion con datos incorrectos o introduzca primero el evento apertura"
             form = RegistrarSesionesPonencia(request.POST)     
              
         ctx = {"form":form, "informacion":info}
-        return render_to_response('RegistrarSesionesPonencia.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarSesionesPonencia.html', ctx,
+                                   context_instance=RequestContext(request))
     # Si el request es un GET    
     else:
         form = RegistrarSesionesPonencia()
         ctx = {"form":form}
-        return render_to_response('RegistrarSesionesPonencia.html', ctx, 
-                                   context_instance = RequestContext(request))
+        return render_to_response('RegistrarSesionesPonencia.html', ctx,
+                                   context_instance=RequestContext(request))

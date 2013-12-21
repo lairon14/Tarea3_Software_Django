@@ -1,15 +1,9 @@
-
 from django.contrib import admin
 
-from clei.apps.clei.models import Persona, Autor, MiembroCP, Topico, Articulo, Evaluacion
-from clei.apps.clei.models import Lugar
-from clei.apps.clei.models import Taller
-from clei.apps.clei.models import Eventos_Sociales
-from clei.apps.clei.models import Apertura
-from clei.apps.clei.models import Clausura
-from clei.apps.clei.models import Charlas_Invitadas
-from clei.apps.clei.models import CharlistaInvitado
-from clei.apps.clei.models import Sesiones_Ponencia
+from clei.apps.clei.models import Apertura, Charlas_Invitadas, CharlistaInvitado, \
+    Clausura, Eventos_Sociales, Lugar, Persona, Autor, MiembroCP, Topico, Articulo, \
+    Evaluacion, Sesiones_Ponencia, Taller
+
 
 # Registro de modelos
 admin.site.register(Persona)

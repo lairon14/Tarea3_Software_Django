@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+
 SETTINGS_ROOT = os.path.dirname(__file__)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -50,6 +51,7 @@ INSTALLED_APPS = (
     
     'clei.apps.clei',
     'clei.apps.SeleccionArticulos',
+    'clei.apps.inscripciones',
 )
 
 TEMPLATE_LOADERS = (
@@ -70,10 +72,10 @@ MIDDLEWARE_CLASSES = (
 
 
 
-#MEDIA_ROOT = os.path.normpath(os.path.join(DIRNAME, 'media/'))
+# MEDIA_ROOT = os.path.normpath(os.path.join(DIRNAME, 'media/'))
 
                 
-#MEDIA_URL = '/media/'
+# MEDIA_URL = '/media/'
 
 ROOT_URLCONF = 'clei.urls'
 

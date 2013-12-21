@@ -1,25 +1,24 @@
 
+from datetime import datetime
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
-from datetime import datetime
-
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Persona(models.Model):
-    nombre = models.CharField(max_length = 64)
-    apellido = models.CharField(max_length = 64)
-    institucion = models.CharField(max_length = 64)
-    pais = models.CharField(max_length = 32)
+    nombre = models.CharField(max_length=64)
+    apellido = models.CharField(max_length=64)
+    institucion = models.CharField(max_length=64)
+    pais = models.CharField(max_length=32)
     
     def __unicode__(self):
-        nombre_completo = "%s %s"%(self.nombre, self.apellido)
+        nombre_completo = "%s %s" % (self.nombre, self.apellido)
         return nombre_completo
     
 class Autor(Persona):
     pass
 
 class Topico(models.Model):
-    nombre = models.CharField(max_length = 64)
+    nombre = models.CharField(max_length=64)
     
     def es_igual(self, topico):
         return self.nombre == topico.nombre
@@ -28,11 +27,11 @@ class Topico(models.Model):
         return self.nombre
 
 class MiembroCP(Persona):
-    topico = models.ManyToManyField(Topico, null=True, blank = True)
-    es_presidente = models.BooleanField(default = False)
+    topico = models.ManyToManyField(Topico, null=True, blank=True)
+    es_presidente = models.BooleanField(default=False)
     
     def __unicode__(self):
-        nombre_completo = "%s %s"%(self.nombre, self.apellido)
+        nombre_completo = "%s %s" % (self.nombre, self.apellido)
         return nombre_completo
     
     
@@ -41,19 +40,19 @@ class Articulo(models.Model):
                         ('ACEPTADO', 'ACEPTADO'),
                         ('ACEPTADO_ESPECIAL', "ACEPTADO_ESPECIAL"),
                         ('RECHAZADO POR FALTA DE CUPO', 'RECHAZADO POR FALTA DE CUPO'),
-                        ('RECHAZADO POR FALTA DE PROMEDIO','RECHAZADO POR FALTA DE PROMEDIO'),
-                        ('SIN DECIDIR', 'SIN DECIDIR'),                      
+                        ('RECHAZADO POR FALTA DE PROMEDIO', 'RECHAZADO POR FALTA DE PROMEDIO'),
+                        ('SIN DECIDIR', 'SIN DECIDIR'),
                         )
-    titulo = models.CharField(max_length = 64)
-    p1 = models.CharField(max_length = 20)
-    p2 = models.CharField(max_length = 20, null = True)
-    p3 = models.CharField(max_length = 20, null = True)
-    p4 = models.CharField(max_length = 20, null = True)
-    p5 = models.CharField(max_length = 20, null = True)
+    titulo = models.CharField(max_length=64)
+    p1 = models.CharField(max_length=20)
+    p2 = models.CharField(max_length=20, null=True)
+    p3 = models.CharField(max_length=20, null=True)
+    p4 = models.CharField(max_length=20, null=True)
+    p5 = models.CharField(max_length=20, null=True)
     topicos = models.ManyToManyField(Topico)
     autores = models.ManyToManyField(Autor)
-    status = models.CharField(max_length = 32,
-                              choices = TIPOS_DE_ESTADOS,
+    status = models.CharField(max_length=32,
+                              choices=TIPOS_DE_ESTADOS,
                               default="SIN DECIDIR")
     
     def es_aceptable(self):
@@ -62,7 +61,7 @@ class Articulo(models.Model):
     
     def calcular_promedio(self):
         evaluaciones = Evaluacion.objects.filter(articulo=self)
-        if len(evaluaciones)<2:
+        if len(evaluaciones) < 2:
             promedio = 0
         else:
             suma = sum([eva.nota for eva in evaluaciones])
@@ -89,7 +88,7 @@ class Evaluacion(models.Model):
     articulo = models.ForeignKey(Articulo)
     nota = models.IntegerField(validators=[MinValueValidator(1),
                                        MaxValueValidator(5)])
-    #nota = models.IntegerField()
+    # nota = models.IntegerField()
     
     # Funcion que calcula si los topicos del cp
     # y los del articulo coinciden
@@ -109,17 +108,17 @@ class Evaluacion(models.Model):
     
     
 class Lugar(models.Model):
-    nombre = models.CharField( max_length = 100)
-    ubicacion = models.CharField( max_length = 250)
-    capacidad = models.PositiveIntegerField( default = 0)
+    nombre = models.CharField(max_length=100)
+    ubicacion = models.CharField(max_length=250)
+    capacidad = models.PositiveIntegerField(default=0)
         
     def __unicode__(self):
         return "%s %s %i" % (self.nombre, self.ubicacion, self.capacidad)
     
 class Evento(models.Model):
-    duracion = models.TimeField() #HH:MM:SS
-    fecha = models.DateField() # YYYY-MM-DD
-    hora_inicio = models.TimeField() # HH:MM:SS
+    duracion = models.TimeField()  # HH:MM:SS
+    fecha = models.DateField()  # YYYY-MM-DD
+    hora_inicio = models.TimeField()  # HH:MM:SS
     lugar = models.ForeignKey(Lugar)
     
     def HoraFin(self, inicio, duracion):
@@ -136,14 +135,14 @@ class Evento(models.Model):
         if hora > 23:
             hora = hora - 24
       
-        return datetime.strptime(str(hora)+":"+str(minutos)+":"+str(segundos), "%H:%M:%S").time()
+        return datetime.strptime(str(hora) + ":" + str(minutos) + ":" + str(segundos), "%H:%M:%S").time()
    
 
     def __unicode__(self):
         return "%s %s %s %s" % (self.duracion, self.fecha, self.hora_inicio, self.lugar)
     
 class Taller(Evento):
-    nombre = models.CharField( max_length = 30)
+    nombre = models.CharField(max_length=30)
     
     def obtener_segunda_fecha(self, fecha):
         
@@ -151,11 +150,11 @@ class Taller(Evento):
         dia = fecha.day + 1
         mes = fecha.month
         ano = fecha.year
-        #numero de dias que tiene el mes 'mes'
+        # numero de dias que tiene el mes 'mes'
         aux = DiasPorMes[mes]
-        #si dias es mayor que dias por mes actual
+        # si dias es mayor que dias por mes actual
         if aux >= dia:
-            return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+            return datetime.strptime(str(ano) + "-" + str(mes) + "-" + str(dia), '%Y-%m-%d').date()
         else:
             if aux == 30:
                 dia -= 30
@@ -170,19 +169,19 @@ class Taller(Evento):
             else:
                 dia -= 28
                 mes += 1
-        return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+        return datetime.strptime(str(ano) + "-" + str(mes) + "-" + str(dia), '%Y-%m-%d').date()
     
     def __unicode__(self):
         return "%s" % (self.nombre)
     
 class Eventos_Sociales(Evento):
-    nombre = models.CharField( max_length = 30)
+    nombre = models.CharField(max_length=30)
     
     def __unicode__(self):
         return "%s" % (self.nombre)
 
 class Apertura(Evento):
-    nombre = models.CharField( max_length = 30)
+    nombre = models.CharField(max_length=30)
     
     def obtener_fecha(self, fecha):
         
@@ -192,12 +191,12 @@ class Apertura(Evento):
         mes = fecha.month
         ano = fecha.year
         
-        #numero de dias que tiene el mes 'mes'
+        # numero de dias que tiene el mes 'mes'
         aux = DiasPorMes[mes]
         
-        #si dias es mayor que dias por mes actual
+        # si dias es mayor que dias por mes actual
         if aux >= dia:
-            return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+            return datetime.strptime(str(ano) + "-" + str(mes) + "-" + str(dia), '%Y-%m-%d').date()
         else:
             if aux == 30:
                 dia -= 30
@@ -214,13 +213,13 @@ class Apertura(Evento):
                 mes += 1
                     
                 
-        return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+        return datetime.strptime(str(ano) + "-" + str(mes) + "-" + str(dia), '%Y-%m-%d').date()
     
     def __unicode__(self):
         return "%s" % (self.nombre)
 
 class Clausura(Evento):
-    nombre = models.CharField( max_length = 30)
+    nombre = models.CharField(max_length=30)
     
     
     
@@ -228,15 +227,15 @@ class Clausura(Evento):
         return "%s" % (self.nombre) 
         
 class CharlistaInvitado(Persona):
-    curriculum = models.CharField( max_length = 100 )
+    curriculum = models.CharField(max_length=100)
         
     def __unicode__(self):
         return "%s" % (self.curriculum)
     
 
 class Charlas_Invitadas(Evento):
-    nombre = models.CharField( max_length = 30)
-    resumen = models.CharField( max_length = 255)
+    nombre = models.CharField(max_length=30)
+    resumen = models.CharField(max_length=255)
     charlista = models.ForeignKey(CharlistaInvitado)
     cp = models.ForeignKey(MiembroCP)
     topico = models.ForeignKey(Topico)
@@ -245,22 +244,22 @@ class Charlas_Invitadas(Evento):
         return "%s %s %s %s" % (self.nombre, self.resumen, self.charlista, self.cp)
     
 class Sesiones_Ponencia(Evento):
-    nombre = models.CharField( max_length = 30)
-    resumen = models.CharField( max_length = 255)
+    nombre = models.CharField(max_length=30)
+    resumen = models.CharField(max_length=255)
     articulo = models.ForeignKey(Articulo)
     cp = models.ForeignKey(MiembroCP)
     
-    def obtener_fecha_ponencia(self, fecha,aux):
+    def obtener_fecha_ponencia(self, fecha, aux):
         
         DiasPorMes = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
         dia = fecha.day + aux
         mes = fecha.month
         ano = fecha.year
-        #numero de dias que tiene el mes 'mes'
+        # numero de dias que tiene el mes 'mes'
         aux = DiasPorMes[mes]
-        #si dias es mayor que dias por mes actual
+        # si dias es mayor que dias por mes actual
         if aux >= dia:
-            return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+            return datetime.strptime(str(ano) + "-" + str(mes) + "-" + str(dia), '%Y-%m-%d').date()
         else:
             if aux == 30:
                 dia -= 30
@@ -275,7 +274,7 @@ class Sesiones_Ponencia(Evento):
             else:
                 dia -= 28
                 mes += 1
-        return datetime.strptime(str(ano)+"-"+str(mes)+"-"+str(dia), '%Y-%m-%d').date()
+        return datetime.strptime(str(ano) + "-" + str(mes) + "-" + str(dia), '%Y-%m-%d').date()
     
     def __unicode__(self):
         return "%s %s %s %s" % (self.nombre, self.resumen, self.articulo, self.cp)
