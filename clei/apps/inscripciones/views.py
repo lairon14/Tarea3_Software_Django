@@ -3,9 +3,10 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
+from datetime import datetime
 
 from clei.apps.inscripciones.forms import ParticipanteForm, InscripcionForm
-from clei.apps.inscripciones.models import Participante, Inscripcion
+from clei.apps.inscripciones.models import Participante, Inscripcion, InscribirGeneral
 
 
 def index_view(request):
@@ -15,30 +16,14 @@ def index_view(request):
 def select_paquete_view(request):
     return render_to_response('inscripciones/select_paquete.html',
                               context_instance=RequestContext(request))
-
-def select_descuento_view(request):
-    return render_to_response('inscripciones/select_descuento.html',
-                              context_instance=RequestContext(request))
-
-def exclusiva_charlas_view(request):
-    return render_to_response('inscripciones/exclusiva_charlas.html',
-                              context_instance=RequestContext(request))
-
-def exclusiva_talleres_view(request):
-    return render_to_response('inscripciones/exclusiva_talleres.html',
-                              context_instance=RequestContext(request))
-
-def exclusiva_talleres_charlas_view(request):
-    return render_to_response('inscripciones/exclusiva_talleres_charlas.html',
-                              context_instance=RequestContext(request))
                               
 class CreateGeneralView(CreateView):
     persona = None
     model = Inscripcion
     form_class = InscripcionForm
     template_name = "inscripciones/paquete_general.html"
-    #    initial = {'precio': 250, 'beneficios': 'beneficios', 'eventos':'eventos'}
-    initial = {'persona' :Participante.objects.last()}
+    tipoInscripcion = InscribirGeneral()
+    initial = {'persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now}
     def get_context_data(self, *args, **kwargs):
         context = super(CreateGeneralView, self).get_context_data(*args, **kwargs)
         return context
