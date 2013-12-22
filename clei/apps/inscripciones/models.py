@@ -42,7 +42,7 @@ class InscribirGeneral(ComoInscribir):
         self.descuento = 100
     
     def configurar_inscripcion(self):
-        if datetime.now()<self.fecha_limite:
+        if datetime.now() < self.fecha_limite:
             self.costo = self.costo - self.descuento
             
         

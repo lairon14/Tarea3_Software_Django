@@ -16,7 +16,7 @@ class RegistrarMiembroCPForm(forms.ModelForm):
     '''
     Clase para formulario de miembro de CP
     '''
-    
+
     def __init__(self, *args, **kwargs):
         super(RegistrarMiembroCPForm, self).__init__(*args, **kwargs)
         # Verifico si ya el presidente esta
@@ -24,11 +24,10 @@ class RegistrarMiembroCPForm(forms.ModelForm):
         for cp in MiembroCP.objects.all():
             if cp.es_presidente == True:
                 self.fields["es_presidente"].widget = HiddenInput()
+
     class Meta:
         model = MiembroCP
-                
-        
-    
+
     def clean(self):
         return self.cleaned_data
 
@@ -39,9 +38,10 @@ class RegistrarTopicoForm(forms.ModelForm):
     '''
     error_css_class = 'error'
     required_css_class = 'required'
+
     class Meta:
         model = Topico
-              
+
     # Validacion del campo nombre
     def clean_nombre(self):
         nombre_topico = self.cleaned_data['nombre']
@@ -49,11 +49,12 @@ class RegistrarTopicoForm(forms.ModelForm):
         for topico in Topico.objects.all():
             if topico.nombre == nombre_topico:
                 raise forms.ValidationError(u'Nombre de topico ya existe')
-            
+
         return nombre_topico
 
     def clean(self):
         return self.cleaned_data
+
 
 class RegistrarAutorForm(forms.ModelForm):
     '''
@@ -61,13 +62,11 @@ class RegistrarAutorForm(forms.ModelForm):
     '''
     class Meta:
         model = Autor
-                
-    
+
     def clean(self):
         return self.cleaned_data
 
 
-    
 class RegistrarArticuloForm(forms.ModelForm):
     '''
     Clase para formulario de miembro de CP
@@ -95,16 +94,15 @@ class RegistrarArticuloForm(forms.ModelForm):
     def clean(self):
         return self.cleaned_data
 
-        
-    
+
 class RegistrarEvaluacionForm(forms.ModelForm):
     '''
     Clase para formulario de evaluaciones
     '''
     class Meta:
         model = Evaluacion
-      
-    # Validacion del formulario  
+
+#   Validacion del formulario
     def clean(self):
         # los topicos del miembro del cp y los del articulo deben coincidir
         cp = self.cleaned_data.get('miembro_cp')
@@ -117,98 +115,96 @@ class RegistrarEvaluacionForm(forms.ModelForm):
             raise forms.ValidationError(u'Los topicos no coinciden')
         # Ahora verificamos que la evaluacion no este repetida
         if evaluacion.existe_evaluacion():
-            raise forms.ValidationError(u'Ya la evaluacion existe') 
-        
-        return self.cleaned_data
-    
-class RegistrarLugar(forms.ModelForm): 
-    ''' 
-    Clase para formulario de Lugar 
-    '''
-    class Meta: 
-        model = Lugar
-          
-      
-    def clean(self): 
-        return self.cleaned_data
-        
-class RegistrarTaller(forms.ModelForm): 
-    ''' 
-    Clase para formulario de taller 
-    '''
-    class Meta: 
-        model = Taller
-          
-      
-    def clean(self): 
-        return self.cleaned_data
-    
-class Registrar_Eventos_Sociales(forms.ModelForm): 
-    ''' 
-    Clase para formulario de evento social 
-    '''
-    class Meta: 
-        model = Eventos_Sociales
-          
-      
-    def clean(self): 
+            raise forms.ValidationError(u'Ya la evaluacion existe')
+
         return self.cleaned_data
 
-class RegistrarApertura(forms.ModelForm): 
-    ''' 
-    Clase para formulario de Apertura 
+
+class RegistrarLugar(forms.ModelForm):
     '''
-    class Meta: 
+    Clase para formulario de Lugar
+    '''
+
+    class Meta:
+        model = Lugar
+
+    def clean(self):
+        return self.cleaned_data
+
+
+class RegistrarTaller(forms.ModelForm):
+    '''
+    Clase para formulario de taller
+    '''
+
+    class Meta:
+        model = Taller
+
+    def clean(self):
+        return self.cleaned_data
+
+
+class Registrar_Eventos_Sociales(forms.ModelForm):
+    '''
+    Clase para formulario de evento social
+    '''
+    class Meta:
+        model = Eventos_Sociales
+
+    def clean(self):
+        return self.cleaned_data
+
+
+class RegistrarApertura(forms.ModelForm):
+    '''
+    Clase para formulario de Apertura
+    '''
+    class Meta:
         model = Apertura
-          
-      
-    def clean(self): 
+
+    def clean(self):
         return self.cleaned_data
-    
-class RegistrarClausura(forms.ModelForm): 
-    ''' 
-    Clase para formulario de clausura 
+
+
+class RegistrarClausura(forms.ModelForm):
     '''
-    class Meta: 
+    Clase para formulario de clausura
+    '''
+    class Meta:
         model = Clausura
-          
-      
-    def clean(self): 
+
+    def clean(self):
         return self.cleaned_data
-    
+
+
 class RegistrarCharlistaInvitado(forms.ModelForm):
     '''
     Clase para formulario de miembro de CP
     '''
     class Meta:
         model = CharlistaInvitado
-        
-    
+
     def clean(self):
         return self.cleaned_data
-    
-class RegistrarCharlasInvitadas(forms.ModelForm): 
-    ''' 
-    Clase para formulario de clausura 
+
+
+class RegistrarCharlasInvitadas(forms.ModelForm):
     '''
-    class Meta: 
+    Clase para formulario de clausura
+    '''
+    class Meta:
         model = Charlas_Invitadas
-          
-      
-    def clean(self): 
+
+    def clean(self):
         return self.cleaned_data
-    
-class RegistrarSesionesPonencia(forms.ModelForm): 
-    ''' 
-    Clase para formulario de clausura 
+
+
+class RegistrarSesionesPonencia(forms.ModelForm):
     '''
-    class Meta: 
+    Clase para formulario de clausura
+    '''
+    class Meta:
         model = Sesiones_Ponencia
-          
-      
-    def clean(self): 
+
+    def clean(self):
         return self.cleaned_data
-       
-    
-        
-        

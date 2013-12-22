@@ -1,14 +1,15 @@
+from datetime import datetime
 from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
-from datetime import datetime
-
-from clei.apps.inscripciones.forms import ParticipanteForm, InscripcionForm
-from clei.apps.inscripciones.models import Participante, Inscripcion, InscribirGeneral
 from django.views.generic.list import ListView
+
 from clei.apps.clei.models import Evento
+from clei.apps.inscripciones.forms import ParticipanteForm, InscripcionForm
+from clei.apps.inscripciones.models import Participante, Inscripcion, \
+    InscribirGeneral
 
 
 def index_view(request):
