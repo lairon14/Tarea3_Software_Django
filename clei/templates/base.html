@@ -9,24 +9,11 @@
 	    <script src="{% static "/bootstrap/js/bootstrap.js" %>"</script>
 		    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}" />
 		    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-responsive.css" %}" />
-		    {% block scripts %}  {% endblock %} 
-		    
-		    <style type="text/css">
-		      body{
-		      padding-bottom: 40px;
-		      padding-top: 60px;
-		      }
-		    </style>
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <a class="brand" href="{% url 'vista_principal' %}"> CLEI </a>
-      {% if user.is_authenticated %}
-      <p class="navbar-text pull-right">
-	Usuario {{user.username}}
-      </p>
-      {% endif %}
       <ul class="nav">
 	<li><a href="{% url 'vista_principal' %}">Inicio</a></li>
 	<li><a href="{% url 'vista_registrar_miembrocp' %}">Registrar Miembro CP </a></li>
@@ -57,7 +44,7 @@
       <br>
     </div>
     <footer>
-      <p>&copy Open Proyect 2013
+      <p>&copy Jose Prado, Juan Pereira, Lairon Acosta, Erick Marrero Franklin Padilla, Luiscarlo Rivera
     </footer>
   </div>
 </body>
