@@ -2,7 +2,6 @@
 {% block title %} Inscripciones {% endblock %}
 {% block content %}
 <h3>Seleccion de Paquete de Inscripcion</h3>
-{% if user.is_authenticated %}
 <p> Por favor {{ user.username }} seleccione el paquete que desea</p>
 <ul id="nav">
   <li><a href="{% url 'vista_paquete_general' %}">Asistencia General al Evento</a></li>
@@ -10,5 +9,4 @@
   <!-- <li><a href="{% url 'vista_seleccion_paquete' %}">Asistencia Exclusiva a Talleres</a></li> -->
   <!-- <li><a href="{% url 'vista_seleccion_paquete' %}">Asistencia Exclusiva a Charlas y Talleres</a></li> -->
 </ul>
-{% endif %}
 {% endblock %}}
