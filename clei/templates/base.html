@@ -2,63 +2,63 @@
 {% load staticfiles %}
 
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>{% block title %} Bienvenidos {% endblock %}</title>
-	<script src="{% static "js/jquery.js" %>"</script>
-	<script src="{% static "/bootstrap/js/bootstrap.js" %>"</script>
-	<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}" />
-	<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-responsive.css" %}" />
-	{% block scripts %}  {% endblock %} 
-	
-	<style type="text/css">
-		body{
-			padding-bottom: 40px;
-			padding-top: 60px;
-		}
-	</style>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %} Bienvenidos {% endblock %}</title>
+    <script src="{% static "js/jquery.js" %>"</script>
+	    <script src="{% static "/bootstrap/js/bootstrap.js" %>"</script>
+		    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}" />
+		    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-responsive.css" %}" />
+		    {% block scripts %}  {% endblock %} 
+		    
+		    <style type="text/css">
+		      body{
+		      padding-bottom: 40px;
+		      padding-top: 60px;
+		      }
+		    </style>
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top">
-		<div class="navbar-inner">
-			<a class="brand" href="{% url 'vista_principal' %}"> CLEI </a>
-			{% if user.is_authenticated %}
-				<p class="navbar-text pull-right">
-					Usuario {{user.username}}
-				</p>
-			{% endif %}
-			<ul class="nav">
-				<li><a href="{% url 'vista_principal' %}">Inicio</a></li>
-				<li><a href="{% url 'vista_registrar_miembrocp' %}">Registrar Miembro CP </a></li>
-				<li><a href="{% url 'vista_registrar_articulo' %}">Registrar Articulo </a></li>
-				<li><a href="{% url 'vista_registrar_evaluacion' %}">Registrar Evaluacion </a></li>
-				<li><a href="{% url 'vista_index_seleccion_articulo' %}"> Seleccionar Articulos </a></li>
-				<li><a href="{% url 'vista_registrar_charlista' %}">Registrar Charlista Invitado </a></li>
-				<li><a href="{% url 'vista_registrar_lugar' %}">Registrar Lugar</a></li>
-				<li><a href="{% url 'vista_registrar_taller' %}">Registrar Taller</a></li>
-				<li><a href="{% url 'vista_registrar_evento_social' %}">Registrar Evento Social</a></li>
-				<li><a href="{% url 'vista_registrar_apertura' %}">Registrar Apertura de Conferencia</a></li>
-				<li><a href="{% url 'vista_registrar_clausura' %}">Registrar Clausura de Conferencia</a></li>
-				<li><a href="{% url 'vista_registrar_charlasInvitadas' %}">Registrar Charlas Invitadas</a></li>
-				<li><a href="{% url 'vista_registrar_sesionesPonencia' %}">Registrar Sesion de Ponencia</a></li>	
-				<li><a href="{% url 'crear_participante' %}">Registrar Participante</a></li>
-				<li><a href="{% url 'vista_principal' %}">Listar Participante</a></li>
-			</ul>
-		</div><!--/inner-->
-	</div><!--/navbar-->
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<div class="span9">
-				<div class="hero-unit">
-					{% block content%}
-					{% endblock%}
-				</div>
-			</div>
-			<br>
-		</div>
-		<footer>
-			<p>&copy Open Proyect 2013
-		</footer>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <a class="brand" href="{% url 'vista_principal' %}"> CLEI </a>
+      {% if user.is_authenticated %}
+      <p class="navbar-text pull-right">
+	Usuario {{user.username}}
+      </p>
+      {% endif %}
+      <ul class="nav">
+	<li><a href="{% url 'vista_principal' %}">Inicio</a></li>
+	<li><a href="{% url 'vista_registrar_miembrocp' %}">Registrar Miembro CP </a></li>
+	<li><a href="{% url 'vista_registrar_articulo' %}">Registrar Articulo </a></li>
+	<li><a href="{% url 'vista_registrar_evaluacion' %}">Registrar Evaluacion </a></li>
+	<li><a href="{% url 'vista_index_seleccion_articulo' %}"> Seleccionar Articulos </a></li>
+	<li><a href="{% url 'vista_registrar_charlista' %}">Registrar Charlista Invitado </a></li>
+	<li><a href="{% url 'vista_registrar_lugar' %}">Registrar Lugar</a></li>
+	<li><a href="{% url 'vista_registrar_taller' %}">Registrar Taller</a></li>
+	<li><a href="{% url 'vista_registrar_evento_social' %}">Registrar Evento Social</a></li>
+	<li><a href="{% url 'vista_registrar_apertura' %}">Registrar Apertura de Conferencia</a></li>
+	<li><a href="{% url 'vista_registrar_clausura' %}">Registrar Clausura de Conferencia</a></li>
+	<li><a href="{% url 'vista_registrar_charlasInvitadas' %}">Registrar Charlas Invitadas</a></li>
+	<li><a href="{% url 'vista_registrar_sesionesPonencia' %}">Registrar Sesion de Ponencia</a></li>	
+	<li><a href="{% url 'crear_participante' %}">Registrar Participante</a></li>
+	<li><a href="{% url 'vista_inscritos' %}">Listar Participante</a></li>
+      </ul>
+    </div><!--/inner-->
+  </div><!--/navbar-->
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span9">
+	<div class="hero-unit">
+	  {% block content%}
+	  {% endblock%}
 	</div>
+      </div>
+      <br>
+    </div>
+    <footer>
+      <p>&copy Open Proyect 2013
+    </footer>
+  </div>
 </body>
 </html>

@@ -18,7 +18,7 @@ class Participante(Persona):
     fecha = models.DateTimeField(default=datetime.now())  
     
     def __unicode__(self):
-        cadena = "%s %s" % (self.nombre, self.apellido)
+        cadena = "%s %s        %s" % (self.nombre, self.apellido, self.correo)
 #         cadena += " %s %s" % (self.correo, self.numeroTelefono)
         return cadena
     
@@ -61,5 +61,5 @@ class Inscripcion(models.Model):
 #         self.persona = persona   
     
     def __unicode__(self):
-        insc = "%s %s %s" % (self.persona.__unicode__(), self.fecha_inscripcion)
+        insc = "%s %s" % (self.persona.__unicode__(), self.pago_realizado)
         return insc

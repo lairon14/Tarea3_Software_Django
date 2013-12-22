@@ -7,6 +7,8 @@ from datetime import datetime
 
 from clei.apps.inscripciones.forms import ParticipanteForm, InscripcionForm
 from clei.apps.inscripciones.models import Participante, Inscripcion, InscribirGeneral
+from django.views.generic.list import ListView
+from clei.apps.clei.models import Evento
 
 
 def index_view(request):
@@ -23,7 +25,7 @@ class CreateGeneralView(CreateView):
     form_class = InscripcionForm
     template_name = "inscripciones/paquete_general.html"
     tipoInscripcion = InscribirGeneral()
-    initial = {'persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now}
+    initial = {'persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now, 'eventos': Evento.objects.all()}
     def get_context_data(self, *args, **kwargs):
         context = super(CreateGeneralView, self).get_context_data(*args, **kwargs)
         return context
@@ -46,3 +48,7 @@ class CreateParticipanteView(CreateView):
 class VerInscripcionView(DetailView):
     model = Inscripcion
     template_name = "inscripciones/ver_inscripcion.html"
+
+class VerInscritosView(ListView):
+    model = Inscripcion
+    template_name = "inscripciones/ver_participante.html"
