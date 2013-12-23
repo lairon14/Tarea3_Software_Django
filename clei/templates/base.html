@@ -9,6 +9,7 @@
 	    <script src="{% static "/bootstrap/js/bootstrap.js" %>"</script>
 		    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}" />
 		    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-responsive.css" %}" />
+		    {% block scripts %}  {% endblock %}
 </head>
 <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
