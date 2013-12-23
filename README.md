@@ -18,3 +18,5 @@ postgresql  9.1 (Manejador de Bases de Datos)
 Instrucciones:
 Para poder hacer uso de esta entrega se deben tener instaladas las herramientas, para el manejador de bases de datos configurar el usuario 'postgres' con la contraseña 'postgres' y una base de datosllamada 'clei'.
 La pagina principal del proyecto podra ser accedida a traves de la direccion 127.0.0.1:8000 en un explorador web.
+
+Alternativamente se puede configurar la base de datos en el archivo setting.py en la carpeta del proyecto.
