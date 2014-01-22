@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^', include('clei.apps.clei.urls')),
     url(r'^', include('clei.apps.SeleccionArticulos.urls')),
     url(r'^', include('clei.apps.inscripciones.urls')),
+    url(r'^', include('clei.apps.histograma.urls')),
     url(r'^inscripcion/', include('clei.apps.inscripciones.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
