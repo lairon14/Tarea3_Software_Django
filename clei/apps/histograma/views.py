@@ -11,16 +11,16 @@ def seleccionar_histograma_view(request):
     return render_to_response('histograma/seleccion_histograma.html',
                                context_instance=RequestContext(request))
     
-def mostrar_histograma_view(request):
-    return render_to_response('histograma/mostrar_histograma.html',
-                               context_instance=RequestContext(request))
-    
-
-def resultado_histograma_view(request):
+def plot_result(request):
     hist = histograma()
     fig = hist.porAutor()
     canvas = FigureCanvas(fig)
     response= HttpResponse(mimetype='image/png')
     canvas.print_png(response)
     return response
+    
+
+def mostrar_histograma_view(request):
+    return render_to_response('histograma/mostrar_histograma.html',
+                               context_instance=RequestContext(request))
     
