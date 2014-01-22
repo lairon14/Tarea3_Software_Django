@@ -32,7 +32,7 @@ MEDIA_ROOT = os.path.join(SETTINGS_ROOT, "media/")
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (
-                    'C:/zerk20/workspace/demo/clei/static',
+                    'clei/static',
                     )
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
