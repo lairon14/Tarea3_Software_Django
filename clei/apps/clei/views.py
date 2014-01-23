@@ -1,4 +1,3 @@
-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -6,7 +5,10 @@ from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
     RegistrarAutorForm, RegistrarLugar, RegistrarCharlistaInvitado, \
     RegistrarSesionesPonencia, RegistrarEvaluacionForm, RegistrarTopicoForm, \
     RegistrarMiembroCPForm, RegistrarArticuloForm, RegistrarTaller, \
-    Registrar_Eventos_Sociales, RegistrarCharlasInvitadas
+    Registrar_Eventos_Sociales, RegistrarCharlasInvitadas    
+    
+
+    
 from clei.apps.clei.models import Evento, Taller, Apertura, Clausura, MiembroCP, \
     Articulo, Evaluacion, Topico, Autor, Sesiones_Ponencia
 
