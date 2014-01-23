@@ -320,7 +320,7 @@ def registrar_apertura_view(request):
             
             apertura.save()
             form.save_m2m()
-            info = "Se guardo satisfactoriamente " 
+            info = "Se guardo satisfactoriamente 1" 
             form = RegistrarApertura()
             # print num_aperturas
         else:
