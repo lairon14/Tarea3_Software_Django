@@ -2,11 +2,14 @@
 from clei.apps.clei.models import Articulo
 import numpy as np 
 import matplotlib.pyplot as plt
+from django.db.models import Q
 
 class histograma():
+
     
     def porAutor(self):
-        lista_art_aceptados = Articulo.objects.filter(status='ACEPTADO')
+        lista_art_aceptados = Articulo.objects.filter(Q(status='ACEPTADO') 
+                                                           | Q(status="ACEPTADO ESPECIAL"))
         lista_autores = []
         for art in lista_art_aceptados:
             lista_autores += art.autores.all() 
@@ -26,7 +29,8 @@ class histograma():
         
 
     def porPais(self):
-        lista_art_aceptados = Articulo.objects.filter(status='ACEPTADO')
+        lista_art_aceptados = Articulo.objects.filter(Q(status='ACEPTADO') 
+                                                           | Q(status="ACEPTADO ESPECIAL"))
         lista_paises = []
         for art in lista_art_aceptados:
             for aut in art.autores.all():
@@ -46,7 +50,45 @@ class histograma():
         return (lista_paises, valores)
     
     def porInstitucion(self):
-        pass
+        lista_art_aceptados = Articulo.objects.filter(Q(status='ACEPTADO') 
+                                                           | Q(status="ACEPTADO ESPECIAL"))
+        lista_institucion = []
+        for art in lista_art_aceptados:
+            for aut in art.autores.all():
+                lista_institucion.append(aut.institucion) 
+            
+        lista_institucion = list(set(lista_institucion))
+        valores=[]
+        for inst in lista_institucion:
+            index = 0
+            for art in lista_art_aceptados:
+                for aut in art.autores.all():
+                    if inst == aut.institucion:
+                        index+=1
+                
+            valores.append(index)
         
-    def porTopicos(self):
-        pass
+        return (lista_institucion, valores)
+        
+    def porTopico(self):
+        lista_art_aceptados = Articulo.objects.filter(Q(status='ACEPTADO') 
+                                                           | Q(status="ACEPTADO ESPECIAL"))
+        lista_topicos = []
+        for art in lista_art_aceptados:
+            lista_topicos += art.topicos.all() 
+            
+        lista_topicos = list(set(lista_topicos))
+        valores=[]
+        for t in lista_topicos:
+            index = 0
+            for art in lista_art_aceptados:
+                for top in art.topicos.all():
+                    if t.nombre == top.nombre:
+                        index+=1
+                
+            valores.append(index)
+        
+        return (lista_topicos, valores)
+        
+        
+        
