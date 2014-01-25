@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}	
-<!-- <h1>Paquete General</h1> -->
-<p>Ha seleccionado el paquete General, que contiene:</p>
+<h2>Paquete General</h2>
 <br>
 <form action="." method="POST" encType="multipart/form-data">
   {% csrf_token %}
@@ -9,8 +8,5 @@
   <input type="submit" value="Seleccionar Este Paquete">
   <input type="reset" value="Limpiar">
 </form>
-<br>
-{{ informacion }}
-<br>
 <a href="/"> Regresar </a>
 {% endblock %}

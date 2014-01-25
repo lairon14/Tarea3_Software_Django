@@ -3,7 +3,6 @@ from django.conf.urls import patterns, url
 from clei.apps.inscripciones.views import CreateParticipanteView, \
     VerInscripcionView, CreateGeneralView, VerInscritosView
 
-
 urlpatterns = patterns('clei.apps.inscripciones.views',
                        url(r'^$', 'index_view', name='vista_inscripciones'),
                        
@@ -11,6 +10,8 @@ urlpatterns = patterns('clei.apps.inscripciones.views',
 
                        url(r'^paquete/$', 'select_paquete_view', name='vista_seleccion_paquete'),
 
+                       url(r'^vergeneral/$', 'ver_general_view', name='vista_ver_general'),
+                       
                        url(r'^general/$', CreateGeneralView.as_view(), name='vista_paquete_general'),
 
                        url(r'^inscritos/$', VerInscritosView.as_view(), name='vista_inscritos'),

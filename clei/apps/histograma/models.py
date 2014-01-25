@@ -1,8 +1,10 @@
 
-from clei.apps.clei.models import Articulo
-import numpy as np 
-import matplotlib.pyplot as plt
 from django.db.models import Q
+
+from clei.apps.clei.models import Articulo
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 class histograma():
 
@@ -15,13 +17,13 @@ class histograma():
             lista_autores += art.autores.all() 
             
         lista_autores = list(set(lista_autores))
-        valores=[]
+        valores = []
         for a in lista_autores:
             index = 0
             for art in lista_art_aceptados:
                 for aut in art.autores.all():
                     if a.nombre == aut.nombre:
-                        index+=1
+                        index += 1
                 
             valores.append(index)
         
@@ -37,13 +39,13 @@ class histograma():
                 lista_paises.append(aut.pais) 
             
         lista_paises = list(set(lista_paises))
-        valores=[]
+        valores = []
         for pais in lista_paises:
             index = 0
             for art in lista_art_aceptados:
                 for aut in art.autores.all():
                     if pais == aut.pais:
-                        index+=1
+                        index += 1
                 
             valores.append(index)
         
@@ -58,13 +60,13 @@ class histograma():
                 lista_institucion.append(aut.institucion) 
             
         lista_institucion = list(set(lista_institucion))
-        valores=[]
+        valores = []
         for inst in lista_institucion:
             index = 0
             for art in lista_art_aceptados:
                 for aut in art.autores.all():
                     if inst == aut.institucion:
-                        index+=1
+                        index += 1
                 
             valores.append(index)
         
@@ -78,13 +80,13 @@ class histograma():
             lista_topicos += art.topicos.all() 
             
         lista_topicos = list(set(lista_topicos))
-        valores=[]
+        valores = []
         for t in lista_topicos:
             index = 0
             for art in lista_art_aceptados:
                 for top in art.topicos.all():
                     if t.nombre == top.nombre:
-                        index+=1
+                        index += 1
                 
             valores.append(index)
         

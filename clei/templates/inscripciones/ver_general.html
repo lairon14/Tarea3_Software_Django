@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}	
+<!-- <h1>Paquete General</h1> -->
+<h2>Ha seleccionado el paquete General, que contiene:</h2>
+<p>Costo: 250</p>
+<p>Descuento: 100</p>
+<p>Asistencia: Todos los Eventos</p>
+<a href="{% url 'vista_seleccion_paquete' %}"> Regresar </a>
+<a href="{% url 'vista_paquete_general' %}">Continuar</a>
+{% endblock %}

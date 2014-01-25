@@ -13,7 +13,7 @@ class Participante(Persona):
 
     correo = models.EmailField()
     direcionPostal = models.CharField(max_length=64)
-    url = models.CharField(max_length=64)
+    url = models.URLField(max_length=64)
     numeroTelefono = models.CharField(max_length=64)
     fecha = models.DateTimeField(default=datetime.now())  
     
@@ -22,7 +22,7 @@ class Participante(Persona):
 #         cadena += " %s %s" % (self.correo, self.numeroTelefono)
         return cadena
     
-class ComoInscribir(object):
+class ComoInscribir():
     
     fecha_limite = datetime
     costo = int
@@ -33,6 +33,11 @@ class ComoInscribir(object):
 
     def configurar_inscripcion(self):
         raise NotImplementedError("Excepcion, Esta clase es una Interfaz")
+    
+    def __unicode__(self):
+        cadena = "%s %s" % (self.costo, self.costo)
+#         cadena += " %s %s" % (self.correo, self.numeroTelefono)
+        return cadena
 
 class InscribirGeneral(ComoInscribir):
     
@@ -43,10 +48,7 @@ class InscribirGeneral(ComoInscribir):
     
     def configurar_inscripcion(self):
         if datetime.now() < self.fecha_limite:
-            self.costo = self.costo - self.descuento
-            
-        
-        
+            self.costo = self.costo - self.descuento        
     
 class Inscripcion(models.Model):
     persona = models.ForeignKey(Participante)
@@ -54,7 +56,9 @@ class Inscripcion(models.Model):
     costo = models.IntegerField(default=0)
     descuento = models.IntegerField(default=0)
     pago_realizado = models.IntegerField(default=0)
+    numero_de_deposito = models.IntegerField(default=0)
     eventos = models.ManyToManyField(Evento)
+    
     
     def __init__(self, *args, **kwargs):
         models.Model.__init__(self, *args, **kwargs)
