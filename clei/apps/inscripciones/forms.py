@@ -4,12 +4,13 @@ from clei.apps.inscripciones.models import Participante, Inscripcion
 
 
 class ParticipanteForm(forms.ModelForm):
-    url = forms.URLField(required=False)
+    url = forms.URLField(required=False) 
+    institucion = forms.CharField(required=False) 
     class Meta:
         model = Participante 
-        exclude = ['fecha']
+        #exclude = ['fecha']
         
-class InscripcionForm(forms.ModelForm):
+class InscripcionGeneralForm(forms.ModelForm):
     class Meta:
         model = Inscripcion
         exclude = ['costo', 'descuento', 'fecha_inscripcion','eventos', 'pago_realizado']
