@@ -179,7 +179,8 @@ def seleccionar_articulos_topico_view(request):
         ctx = {"form":form}
         return render_to_response('seleccionarArticuloParametros.html', ctx,
         context_instance=RequestContext(request))
-    
+        
+     
 def seleccionar_articulos_desempate_escogencia_view(request):
     if request.method == 'POST':
         post = request.POST

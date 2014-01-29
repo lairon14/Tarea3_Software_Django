@@ -1,14 +1,8 @@
-
-from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from clei.apps.clei.models import Articulo
-
 import numpy as np 
 import matplotlib.pyplot as plt
-
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 from clei.apps.histograma.models import histograma
 
@@ -74,7 +68,7 @@ def mostrar_histograma_institucion_view(request):
     plt.ylim(0, max(valores)+10)
     plt.title("Histograma de articulos aceptados por institucion")
     plt.xticks(np.arange(len(instituciones)+1), instituciones, rotation=90)
-    plt.show()
+    #plt.show()
     return render_to_response('histograma/seleccion_histograma.html',
                                context_instance=RequestContext(request))
     
