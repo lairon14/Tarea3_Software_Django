@@ -30,8 +30,18 @@ class MiembroCP(Persona):
     topico = models.ManyToManyField(Topico, null=True, blank=True)
     es_presidente = models.BooleanField(default=False)
     
+    def Obtener_topico(self, topico):
+        lista = self.topico.all()
+        for top in lista:
+            if top == topico:
+                return 1
+        return 0
+    
+    def Topicos(self):
+        return self.topico.all()
+    
     def __unicode__(self):
-        nombre_completo = "%s %s" % (self.nombre, self.apellido)
+        nombre_completo = "%s" %(self.nombre)
         return nombre_completo
     
     
@@ -54,6 +64,14 @@ class Articulo(models.Model):
     status = models.CharField(max_length=32,
                               choices=TIPOS_DE_ESTADOS,
                               default="SIN DECIDIR")
+    
+    def Verificar_topico(self, cp_topicos):
+        for top in cp_topicos:
+            lista = self.topicos.all()
+            for t in lista:
+                if top == t:
+                    return 1
+        return 0
     
     def es_aceptable(self):
         evaluaciones = Evaluacion.objects.filter(articulo=self)
@@ -230,7 +248,8 @@ class CharlistaInvitado(Persona):
     curriculum = models.CharField(max_length=100)
         
     def __unicode__(self):
-        return "%s" % (self.curriculum)
+        nombre_completo = "%s %s" % (self.nombre, self.apellido)
+        return nombre_completo
     
 
 class Charlas_Invitadas(Evento):

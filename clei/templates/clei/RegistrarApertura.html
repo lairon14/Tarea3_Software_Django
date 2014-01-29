@@ -1,17 +1,18 @@
 {% extends "base.html" %}
-{% block title %} Agregar Apertura de Conferencia {% endblock %}
+{% block title %} Agregar Apertura de Conferencia 1{% endblock %}
 
 {% block content %}
 <br>
 <h3> Agregar Apertura de conferencia </h3>
+<br>
+{{ informacion }}
+<br>
 <form action="." method="POST" encType="multipart/form-data">
   {% csrf_token %}
   {{ form.as_p }}
   <input type="submit" value="Registrar Apertura">
   <input type="reset" value="Limpiar">
 </form>
-<br>
-{{ informacion }}
-<br>
+
 <a href="/"> Regresar </a>
 {% endblock %}

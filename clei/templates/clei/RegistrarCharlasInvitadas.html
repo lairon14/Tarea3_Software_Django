@@ -2,16 +2,19 @@
 {% block title %} Agregar Charla Invitada {% endblock %}
 
 {% block content %}
+
 	<br>
 	<h3> Agregar Charla Invitada </h3>
+	<br>
+		{{ informacion }}
+	<br>
+	<br>
 	<form action="." method="POST" encType="multipart/form-data">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" value="Registrar Charla Invitada">
 		<input type="reset" value="Limpiar">
 	</form>
-	<br>
-		{{ informacion }}
-	<br>
+
 	<a href="/"> Regresar </a>
 {% endblock %}

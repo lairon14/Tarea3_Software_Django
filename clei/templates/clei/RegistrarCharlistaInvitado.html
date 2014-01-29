@@ -3,6 +3,9 @@
 
 {% block content %}
 	<br>
+		{{ informacion }}
+	<br>
+	<br>
 	<h3> Agregar Charlista Invitado </h3>
 	<form action="." method="POST" encType="multipart/form-data">
 		{% csrf_token %}
@@ -10,8 +13,5 @@
 		<input type="submit" value="Registrar Charlista Invitado">
 		<input type="reset" value="Limpiar">
 	</form>
-	<br>
-		{{ informacion }}
-	<br>
 	<a href="/"> Regresar </a>
 {% endblock %}

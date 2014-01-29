@@ -208,3 +208,14 @@ class RegistrarSesionesPonencia(forms.ModelForm):
 
     def clean(self):
         return self.cleaned_data
+
+class RegistrarMiembroCP(forms.ModelForm):
+    '''
+    Clase para formulario de miembro de CP
+    '''
+    class Meta:
+        model = MiembroCP
+        
+    
+    def clean(self):
+        return self.cleaned_data
