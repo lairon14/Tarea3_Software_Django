@@ -55,7 +55,7 @@ class CreateGeneralView(CreateView):
     tipoInscripcion.configurar_inscripcion()
     
     
-    initial = {'pago_realizado': tipoInscripcion.costo - tipoInscripcion.descuento,'persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now, 'eventos': Evento.objects.all()}
+    initial = {'pago_realizado': tipoInscripcion.costo - tipoInscripcion.descuento,'Persona' :Participante.objects, 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now, 'eventos': Evento.objects.all()}
     def get_context_data(self, *args, **kwargs):
         context = super(CreateGeneralView, self).get_context_data(*args, **kwargs)
         return context
