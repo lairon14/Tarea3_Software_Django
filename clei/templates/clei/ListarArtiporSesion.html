@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %} Lista de Articulos {% endblock %}
+
+{% block content %}
+<br>
+<h3> Lista de Articulos por Sesion </h3>
+<br>
+	
+	{% for sesion in lista_sesiones %}
+	  Nombre de sesion: {{sesion.nombre}}<br>
+	  Nombre del articulo: {{sesion.articulo}}<br> 
+	  {% for autor in sesion.articulo.autores.all %}
+	      Autor: {{autor}}<br>	      
+	  {% endfor%}
+	  {% for topico in sesion.articulo.topicos.all %}
+	      Topico: {{topico}}<br>	      
+	  {% endfor%}
+	  <br>
+	  <br>
+	{% endfor%}
+
+{% endblock %}

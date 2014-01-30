@@ -11,6 +11,7 @@ from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
     
 from clei.apps.clei.models import Evento, Taller, Apertura, Clausura, MiembroCP, \
     Articulo, Evaluacion, Topico, Autor, Sesiones_Ponencia
+from django.views.generic.list import ListView
 
 
 def index_view(request):
@@ -494,6 +495,7 @@ def registrar_sesionesPonencia_view(request):
             
             fecha3 = Sesiones_Ponencia().obtener_fecha_ponencia(fecha_apertura, 4)
             sesionesPonencia = form.save(commit=False)
+            
                 
             if (fecha1 == form.cleaned_data["fecha"] or fecha2 == form.cleaned_data["fecha"] or fecha3 == form.cleaned_data["fecha"]):
             
@@ -554,3 +556,17 @@ def registrar_sesionesPonencia_view(request):
         return render_to_response('RegistrarSesionesPonencia.html', ctx,
                                    context_instance=RequestContext(request))
 
+def Listar_ArticulosporSesion_view(request):
+     
+     
+    lista_sesiones = Sesiones_Ponencia.objects.all()
+
+    ctx = {"lista_sesiones":lista_sesiones}
+    return render_to_response('ListarArtiporSesion.html', ctx,
+                               context_instance=RequestContext(request))
+
+
+
+      
+    
+    
