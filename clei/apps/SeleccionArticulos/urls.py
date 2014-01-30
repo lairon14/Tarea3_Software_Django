@@ -9,5 +9,5 @@ urlpatterns = patterns = patterns('clei.apps.SeleccionArticulos.views',
         url(r'^seleccionarticulo/porcentaje/$', 'seleccionar_articulos_porcentaje_view', name='vista_seleccion_articulo_porcentaje'),
         url(r'^seleccionarticulo/pais/$', 'seleccionar_articulos_min_p_view', name='vista_seleccion_articulo_min_p'),
         url(r'^seleccionarticulo/aceptados_empatados/$', 'seleccionar_articulos_aceptados_empatados_view', name='vista_seleccion_articulo_aceptados_empatados'),
-        url(r'^seleccionarticulo/desempate/escogencia/$', 'seleccionar_articulos_desempate_escogencia_view', name='vista_seleccion_articulo_desempate_escogencia'),        
+        url(r'^seleccionarticulo/desempate/escogencia/$', 'seleccionar_articulos_desempate_escogencia_view', name='vista_seleccion_articulo_desempate_escogencia'),
         )
