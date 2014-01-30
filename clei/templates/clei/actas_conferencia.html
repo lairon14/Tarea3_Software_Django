@@ -1,0 +1,37 @@
+<html>
+<body>
+{% load staticfiles %}
+<img src="clei/static/logo_clei.png" alt="logo">
+<br />
+<font size="6"><p align="center"><b>Programa detallado de la conferencia</b></p></font>
+{% if lista_articulos %}
+	{% for a in lista_articulos %}
+				<h1>Titulo</h1>{{a.titulo}}
+				<h1>Topicos</h1>
+				{% for t in a.topicos %}
+					{{t.nombre}},
+				{% endfor %}
+				<h1>Autores</h1>
+				{% for aut in a.autores %}
+					{{aut.nombre}},
+				{% endfor %}
+				<h1>Palabras claves</h1>
+				{{a.p1}}
+				{% if a.p2 %}
+					,{{a.p2}}
+				{% endif %}
+				{% if a.p3 %}
+					,{{a.p3}}
+				{% endif %}
+				{% if a.p4 %}
+					,{{a.p4}}
+				{% endif %}
+				{% if a.p5 %}
+					,{{a.p5}}
+				{% endif %}						
+			
+	{% endfor %}
+
+{% endif %}
+</body>
+</html>

@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template import RequestContext, loader, Context
 from django.http import HttpResponse
-
+from django.db.models import Q
 
 import cStringIO as StringIO
 import ho.pisa as pisa
@@ -565,9 +565,8 @@ def registrar_sesionesPonencia_view(request):
 def generar_programa_view(request):
     template = loader.get_template('clei/programa_conferencia.html')
     lista_eventos = Evento.objects.all().order_by('fecha', 'hora_inicio')
-    fecha_actual = datetime.datetime.now()
     
-    context = Context({'lista_eventos':lista_eventos, 'fecha_actual':fecha_actual})
+    context = Context({'lista_eventos':lista_eventos,})
     html  = template.render(context)
     result = StringIO.StringIO()
 
@@ -575,3 +574,18 @@ def generar_programa_view(request):
     if not pdf.err:
         return HttpResponse(result.getvalue(), mimetype='application/pdf')
     return HttpResponse('Error. No se pudo generar el pdf')
+
+def generar_actas_view(request):
+    template = loader.get_template('clei/actas_conferencia.html')
+    lista_articulos = Articulo.objects.filter(Q(status='ACEPTADO') 
+                                | Q(status="ACEPTADO ESPECIAL"))
+    
+    context = Context({'lista_articulos':lista_articulos,})
+    html  = template.render(context)
+    result = StringIO.StringIO()
+
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), mimetype='application/pdf')
+    return HttpResponse('Error. No se pudo generar el pdf')
+    
