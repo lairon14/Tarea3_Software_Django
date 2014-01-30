@@ -1,9 +1,98 @@
 {% extends "base.html" %}
+{% block title %} Participantes de la Conferencia {% endblock %}
 {% block content %}	
-<p> Participantes Inscritos</p>
-<ul>
-  {% for Inscripcion in object_list %}
-  <li>{{ Inscripcion }}</li>
+<br>
+<h3 class="title">Participantes de la Conferencia</h3>
+<br>
+
+<h3>Miembros de CP</h3>
+<table class="table table-hover">
+  <theader>
+    <tr>
+      <td>Nombre</td>
+      <td>Apellido</td>
+      <td>País</td>
+      <td>Institución</td>
+    </tr>
+  </theader>
+  {% for p in miembrocp %}
+  <tbody>
+    <tr>
+      <td>{{p.nombre}}</td>
+      <td>{{p.apellido}}</td>
+      <td>{{p.pais}}</td>
+      <td>{{p.institucion}}</td>
+    </tr>
+  </tbody>
+
   {% endfor %}
-</ul>
+</table>
+
+<h3>Charlistas Invitados</h3>
+<table class="table table-hover">
+  <theader>
+    <tr>
+      <td>Nombre</td>
+      <td>Apellido</td>
+      <td>País</td>
+      <td>Institución</td>
+    </tr>
+  </theader>
+  {% for p in charlistas %}
+  <tbody>
+    <tr>
+      <td>{{p.nombre}}</td>
+      <td>{{p.apellido}}</td>
+      <td>{{p.pais}}</td>
+      <td>{{p.institucion}}</td>
+    </tr>
+  </tbody>
+
+  {% endfor %}
+</table>
+
+<h3>Autores</h3>
+<table class="table table-hover">
+  <theader>
+    <tr>
+      <td>Nombre</td>
+      <td>Apellido</td>
+      <td>País</td>
+      <td>Institución</td>
+    </tr>
+  </theader>
+  {% for p in autores %}
+  <tbody>
+    <tr>
+      <td>{{p.nombre}}</td>
+      <td>{{p.apellido}}</td>
+      <td>{{p.pais}}</td>
+      <td>{{p.institucion}}</td>
+    </tr>
+  </tbody>
+
+  {% endfor %}
+</table>
+<h3>Asistentes</h3>
+<table class="table table-hover">
+  <theader>
+    <tr>
+      <td>Nombre</td>
+      <td>Apellido</td>
+      <td>País</td>
+      <td>Institución</td>
+    </tr>
+  </theader>
+  {% for p in inscripciones %}
+  <tbody>
+    <tr>
+      <td>{{p.persona.nombre}}</td>
+      <td>{{p.persona.apellido}}</td>
+      <td>{{p.persona.pais}}</td>
+      <td>{{p.persona.institucion}}</td>
+    </tr>
+  </tbody>
+
+  {% endfor %}
+</table>
 {% endblock %}

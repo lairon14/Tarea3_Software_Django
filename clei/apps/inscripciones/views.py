@@ -6,11 +6,13 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-from clei.apps.clei.models import Evento, Taller, Charlas_Invitadas
+from clei.apps.clei.models import Evento, Taller, Charlas_Invitadas, Persona,\
+    CharlistaInvitado, MiembroCP, Autor
 from clei.apps.inscripciones.forms import ParticipanteForm, \
     InscripcionGeneralForm
 from clei.apps.inscripciones.models import Participante, Inscripcion, \
     InscribirGeneral, InscribirAcademico, InscribirTalleres, InscribirCharlas
+from clei.apps import inscripciones
 
 
 def index_view(request):
@@ -132,5 +134,14 @@ class VerInscripcionView(DetailView):
 
 
 class VerInscritosView(ListView):
-    model = Inscripcion
+    context_object_name = 'vista_inscritos'
     template_name = "inscripciones/ver_inscritos.html"
+    queryset = Persona.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(VerInscritosView, self).get_context_data(**kwargs)
+        context['inscripciones'] = Inscripcion.objects.all()
+        context['charlistas'] = CharlistaInvitado.objects.all()
+        context['miembrocp'] = MiembroCP.objects.all()
+        context['autores'] = Autor.objects.all()
+        return context
