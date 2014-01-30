@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}	
+<p> Participantes Inscritos</p>
+<ul>
+  {% for Inscripcion in object_list %}
+  <li>{{ Inscripcion }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

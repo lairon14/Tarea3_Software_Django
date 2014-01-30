@@ -133,4 +133,4 @@ class VerInscripcionView(DetailView):
 
 class VerInscritosView(ListView):
     model = Inscripcion
-    template_name = "inscripciones/ver_participante.html"
+    template_name = "inscripciones/ver_inscritos.html"
