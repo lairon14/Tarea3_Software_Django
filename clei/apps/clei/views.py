@@ -1,7 +1,10 @@
+import datetime
+
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.template import RequestContext, loader, Context
 from django.http import HttpResponse
+
 
 import cStringIO as StringIO
 import ho.pisa as pisa
@@ -560,13 +563,15 @@ def registrar_sesionesPonencia_view(request):
                                    context_instance=RequestContext(request))
         
 def generar_programa_view(request):
-    template = loader.get_template('prueba.html')
-    lista_eventos = Evento.objects.all()
-    context = Context({'lista_eventos':lista_eventos,})
+    template = loader.get_template('clei/programa_conferencia.html')
+    lista_eventos = Evento.objects.all().order_by('fecha', 'hora_inicio')
+    fecha_actual = datetime.datetime.now()
+    
+    context = Context({'lista_eventos':lista_eventos, 'fecha_actual':fecha_actual})
     html  = template.render(context)
     result = StringIO.StringIO()
 
     pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
     if not pdf.err:
         return HttpResponse(result.getvalue(), mimetype='application/pdf')
-    return HttpResponse('Errors<pre>%s</pre>' % escape(html))
+    return HttpResponse('Error. No se pudo generar el pdf')
