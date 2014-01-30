@@ -202,7 +202,14 @@ class ArticuloPaisesDesempate(ComoSeleccionarArticulos):
                         art.status = 'RECHAZADO POR FALTA DE CUPO'
                     return lista_seleccionados + lista_rechazados_cupo + self.get_lista_rechazados_articulos()
                     
-        return lista_seleccionados + lista_restantes_empatados + self.get_lista_rechazados_articulos()
+        lista_de_salida = lista_seleccionados + lista_restantes_empatados + self.get_lista_rechazados_articulos()
+        
+        for art in Articulo.objects.all():
+            for art_salida in lista_de_salida:
+                if art.titulo == art_salida.titulo:
+                    art.status = art_salida.status
+                    art.save()
+        return lista_de_salida
 
 
 class ArticuloCortes(ComoSeleccionarArticulos):
@@ -289,7 +296,15 @@ class ArticuloCortes(ComoSeleccionarArticulos):
                 art.status = 'RECHAZADO POR FALTA DE PROMEDIO'
              
                     
-        return lista_seleccionados + interseccion + self.get_lista_rechazados_articulos()
+        lista_de_salida = lista_seleccionados + interseccion + self.get_lista_rechazados_articulos()
+        
+        for art in Articulo.objects.all():
+            for art_salida in lista_de_salida:
+                if art.titulo == art_salida.titulo:
+                    art.status = art_salida.status
+                    art.save()
+        return lista_de_salida
+    
                 
             
 
@@ -368,7 +383,14 @@ class ArticuloPorcentaje(ComoSeleccionarArticulos):
         for art in self.get_lista_articulos():
             art.status = 'RECHAZADO POR FALTA DE CUPO'
             
-        return lista_seleccionados + self.get_lista_articulos() + self.get_lista_rechazados_articulos()
+        lista_de_salida = lista_seleccionados + self.get_lista_articulos() + self.get_lista_rechazados_articulos()
+        
+        for art in Articulo.objects.all():
+            for art_salida in lista_de_salida:
+                if art.titulo == art_salida.titulo:
+                    art.status = art_salida.status
+                    art.save()
+        return lista_de_salida
         
                 
 class ArticuloTopico(ComoSeleccionarArticulos):
@@ -424,7 +446,15 @@ class ArticuloTopico(ComoSeleccionarArticulos):
         for art in lista_seleccionados:
             art.status = 'ACEPTADO'
             
-        return lista_seleccionados + lista_rechazados_cupo + self.get_lista_rechazados_articulos()
+        lista_de_salida = lista_seleccionados + lista_rechazados_cupo + self.get_lista_rechazados_articulos()
+        
+        for art in Articulo.objects.all():
+            for art_salida in lista_de_salida:
+                if art.titulo == art_salida.titulo:
+                    art.status = art_salida.status
+                    art.save()
+        return lista_de_salida
+        
             
 
     
