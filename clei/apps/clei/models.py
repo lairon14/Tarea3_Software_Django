@@ -138,6 +138,7 @@ class Evento(models.Model):
     fecha = models.DateField()  # YYYY-MM-DD
     hora_inicio = models.TimeField()  # HH:MM:SS
     lugar = models.ForeignKey(Lugar)
+    nombre = models.CharField(max_length=30)
     
     def HoraFin(self, inicio, duracion):
 
@@ -157,10 +158,9 @@ class Evento(models.Model):
    
 
     def __unicode__(self):
-        return "%s %s %s %s" % (self.duracion, self.fecha, self.hora_inicio, self.lugar)
+        return "%s" % (self.nombre)
     
 class Taller(Evento):
-    nombre = models.CharField(max_length=30)
     
     def obtener_segunda_fecha(self, fecha):
         
@@ -193,13 +193,11 @@ class Taller(Evento):
         return "%s" % (self.nombre)
     
 class Eventos_Sociales(Evento):
-    nombre = models.CharField(max_length=30)
     
     def __unicode__(self):
         return "%s" % (self.nombre)
 
 class Apertura(Evento):
-    nombre = models.CharField(max_length=30)
     
     def obtener_fecha(self, fecha):
         
@@ -234,12 +232,9 @@ class Apertura(Evento):
         return datetime.strptime(str(ano) + "-" + str(mes) + "-" + str(dia), '%Y-%m-%d').date()
     
     def __unicode__(self):
-        return "%s" % (self.nombre)
-
-class Clausura(Evento):
-    nombre = models.CharField(max_length=30)
+        return "%s %s %s %s %s" % (self.nombre, self.duracion, self.fecha, self.hora_inicio, self.lugar)
     
-    
+class Clausura(Evento):    
     
     def __unicode__(self):
         return "%s" % (self.nombre) 
@@ -253,7 +248,6 @@ class CharlistaInvitado(Persona):
     
 
 class Charlas_Invitadas(Evento):
-    nombre = models.CharField(max_length=30)
     resumen = models.CharField(max_length=255)
     charlista = models.ForeignKey(CharlistaInvitado)
     cp = models.ForeignKey(MiembroCP)
@@ -263,10 +257,13 @@ class Charlas_Invitadas(Evento):
         return "%s %s %s %s" % (self.nombre, self.resumen, self.charlista, self.cp)
     
 class Sesiones_Ponencia(Evento):
-    nombre = models.CharField(max_length=30)
     resumen = models.CharField(max_length=255)
     articulo = models.ForeignKey(Articulo)
     cp = models.ForeignKey(MiembroCP)
+    
+    def listar_articulos_sesion(self):
+        articulos = self.articulo.all()
+        return articulos
     
     def obtener_fecha_ponencia(self, fecha, aux):
         

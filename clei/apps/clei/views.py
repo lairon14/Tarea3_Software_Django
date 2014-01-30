@@ -320,7 +320,7 @@ def registrar_apertura_view(request):
             
             apertura.save()
             form.save_m2m()
-            info = "Se guardo satisfactoriamente 1" 
+            info = "Se guardo satisfactoriamente " 
             form = RegistrarApertura()
             # print num_aperturas
         else:
@@ -535,7 +535,7 @@ def registrar_sesionesPonencia_view(request):
                     else:                    
                         sesionesPonencia.save()
                         form.save_m2m()
-                        info = "Se guardo satisfactoriamente"
+                        info = "Se guardo satisfactoriamente "
                         form = RegistrarSesionesPonencia()
             else:
                 info = "Las sesiones se realizan los siguientes tres dias de la Conferencia. Le sugerimos %s, %s o %s " % (fecha1, fecha2, fecha3)
@@ -553,3 +553,4 @@ def registrar_sesionesPonencia_view(request):
         ctx = {"form":form}
         return render_to_response('RegistrarSesionesPonencia.html', ctx,
                                    context_instance=RequestContext(request))
+
