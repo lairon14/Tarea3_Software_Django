@@ -4,14 +4,14 @@
 {% block content %}
 	<br>
 	<h3> Agregar Taller </h3>
+	<br>
+		{{ informacion }}
+	<br>
 	<form action="." method="POST" encType="multipart/form-data">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" value="Registrar Evento Taller">
 		<input type="reset" value="Limpiar">
 	</form>
-	<br>
-		{{ informacion }}
-	<br>
 	<a href="/"> Regresar </a>
 {% endblock %}

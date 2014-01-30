@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}	
+<!-- <h1>Paquete General</h1> -->
+<h2>Ha seleccionado el paquete de Asistencia a Talleres, que contiene:</h2>
+<p>Costo: 125</p>
+<p>Asistencia: Todos los Talleres</p>
+<a href="{% url 'vista_seleccion_paquete' %}"> Regresar </a>
+<a href="{% url 'vista_paquete_talleres' %}">Continuar</a>
+{% endblock %}

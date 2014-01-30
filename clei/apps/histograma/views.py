@@ -1,10 +1,14 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
+from clei.apps.clei.models import Articulo
+from clei.apps.histograma.models import histograma
 
 import numpy as np 
 import matplotlib.pyplot as plt
 
-from clei.apps.histograma.models import histograma
+
 
 def seleccionar_histograma_view(request):
     return render_to_response('histograma/seleccion_histograma.html',
@@ -29,9 +33,9 @@ def mostrar_histograma_autor_view(request):
     (autores, valores) = hist.porAutor()
     plt.axes((0.1, 0.3, 0.8, 0.6))
     plt.bar(np.arange(len(valores)), valores)
-    plt.ylim(0, max(valores)+10)
+    plt.ylim(0, max(valores) + 10)
     plt.title("Histograma de articulos aceptados por autor")
-    plt.xticks(np.arange(len(autores)+1), autores, rotation=90)
+    plt.xticks(np.arange(len(autores) + 1), autores, rotation=90)
     plt.show()
     return render_to_response('histograma/seleccion_histograma.html',
                                context_instance=RequestContext(request))
@@ -41,9 +45,9 @@ def mostrar_histograma_pais_view(request):
     (pais, valores) = hist.porPais()
     plt.axes((0.1, 0.3, 0.8, 0.6))
     plt.bar(np.arange(len(valores)), valores)
-    plt.ylim(0, max(valores)+10)
+    plt.ylim(0, max(valores) + 10)
     plt.title("Histograma de articulos aceptados por pais")
-    plt.xticks(np.arange(len(pais)+1), pais, rotation=90)
+    plt.xticks(np.arange(len(pais) + 1), pais, rotation=90)
     plt.show()
     return render_to_response('histograma/seleccion_histograma.html',
                                context_instance=RequestContext(request))
@@ -53,9 +57,9 @@ def mostrar_histograma_topico_view(request):
     (topicos, valores) = hist.porTopico()
     plt.axes((0.1, 0.3, 0.8, 0.6))
     plt.bar(np.arange(len(valores)), valores)
-    plt.ylim(0, max(valores)+10)
+    plt.ylim(0, max(valores) + 10)
     plt.title("Histograma de articulos aceptados por topico")
-    plt.xticks(np.arange(len(topicos)+1), topicos, rotation=90)
+    plt.xticks(np.arange(len(topicos) + 1), topicos, rotation=90)
     plt.show()
     return render_to_response('histograma/seleccion_histograma.html',
                                context_instance=RequestContext(request))
@@ -65,7 +69,7 @@ def mostrar_histograma_institucion_view(request):
     (instituciones, valores) = hist.porInstitucion()
     plt.axes((0.1, 0.3, 0.8, 0.6))
     plt.bar(np.arange(len(valores)), valores)
-    plt.ylim(0, max(valores)+10)
+    plt.ylim(0, max(valores) + 10)
     plt.title("Histograma de articulos aceptados por institucion")
     plt.xticks(np.arange(len(instituciones)+1), instituciones, rotation=90)
     plt.show()
