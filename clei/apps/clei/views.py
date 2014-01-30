@@ -1,21 +1,16 @@
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.template import RequestContext, loader, Context
 from django.http import HttpResponse
+from django.shortcuts import render_to_response
+from django.template import RequestContext, RequestContext, loader, Context
 
 import cStringIO as StringIO
-import ho.pisa as pisa
-
 from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
     RegistrarAutorForm, RegistrarLugar, RegistrarCharlistaInvitado, \
     RegistrarSesionesPonencia, RegistrarEvaluacionForm, RegistrarTopicoForm, \
     RegistrarMiembroCPForm, RegistrarArticuloForm, RegistrarTaller, \
-    Registrar_Eventos_Sociales, RegistrarCharlasInvitadas    
-    
-
-    
+    Registrar_Eventos_Sociales, RegistrarCharlasInvitadas
 from clei.apps.clei.models import Evento, Taller, Apertura, Clausura, MiembroCP, \
     Articulo, Evaluacion, Topico, Autor, Sesiones_Ponencia
+import ho.pisa as pisa
 
 
 def index_view(request):
@@ -562,8 +557,8 @@ def registrar_sesionesPonencia_view(request):
 def generar_programa_view(request):
     template = loader.get_template('prueba.html')
     lista_eventos = Evento.objects.all()
-    context = Context({'lista_eventos':lista_eventos,})
-    html  = template.render(context)
+    context = Context({'lista_eventos':lista_eventos, })
+    html = template.render(context)
     result = StringIO.StringIO()
 
     pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)

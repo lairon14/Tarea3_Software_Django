@@ -41,7 +41,7 @@ class MiembroCP(Persona):
         return self.topico.all()
     
     def __unicode__(self):
-        nombre_completo = "%s" %(self.nombre)
+        nombre_completo = "%s" % (self.nombre)
         return nombre_completo
     
     

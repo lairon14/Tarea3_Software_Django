@@ -23,7 +23,7 @@ class histograma():
             for art in lista_art_aceptados:
                 for aut in art.autores.all():
                     if a.nombre == aut.nombre:
-                        index+=1
+                        index += 1
                         
             valores.append(index)
         
@@ -45,7 +45,7 @@ class histograma():
             for art in lista_art_aceptados:
                 for aut in art.autores.all():
                     if pais == aut.pais:
-                        index+=1
+                        index += 1
                         break
                 
             valores.append(index)
@@ -67,7 +67,7 @@ class histograma():
             for art in lista_art_aceptados:
                 for aut in art.autores.all():
                     if inst == aut.institucion:
-                        index+=1
+                        index += 1
                         break
 
                 
