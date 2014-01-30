@@ -3,35 +3,54 @@
 {% load staticfiles %}
 <img src="clei/static/logo_clei.png" alt="logo">
 <br />
-<font size="6"><p align="center"><b>Programa detallado de la conferencia</b></p></font>
+<font size="6"><p align="center"><b>Actas de la conferencia</b></p></font>
 {% if lista_articulos %}
+	<b>Entre los articulos que se presentan en la conferencia CLEI 2014 se encuentran:</b>
 	{% for a in lista_articulos %}
-				<h1>Titulo</h1>{{a.titulo}}
-				<h1>Topicos</h1>
-				{% for t in a.topicos %}
-					{{t.nombre}},
+	
+				<p>Titulo: "{{a.titulo}}",
+				 los topicos de este son los siguientes: 
+				{% for t in a.topicos.all %}
+					"{{t}}", 
 				{% endfor %}
-				<h1>Autores</h1>
-				{% for aut in a.autores %}
-					{{aut.nombre}},
+				  entre sus autores se tienen: 
+				{% for aut in a.autores.all %}
+					"{{aut}}",
 				{% endfor %}
-				<h1>Palabras claves</h1>
-				{{a.p1}}
+				  y las palabras claves que resumen este articulo son: 
+				"{{a.p1}}
 				{% if a.p2 %}
-					,{{a.p2}}
+					, {{a.p2}}
 				{% endif %}
 				{% if a.p3 %}
-					,{{a.p3}}
+					, {{a.p3}}
 				{% endif %}
 				{% if a.p4 %}
-					,{{a.p4}}
+					, {{a.p4}}
 				{% endif %}
 				{% if a.p5 %}
-					,{{a.p5}}
+					, {{a.p5}}
 				{% endif %}						
-			
+			    " <br /></p>
 	{% endfor %}
 
 {% endif %}
+
+{% if lista_charlas %}
+	<b>Entre las charlas invitadas que se presentan en la conferencia CLEI 2014 se encuentran:</b>
+	{% for a in lista_charlas %}
+	
+				<p>Nombre: "{{a.nombre}}",
+				el topico de esta es el siguiente: "{{a.topico}}". 
+				El charlista invitado que se encargará de la charla es: {{a.charlista}}.
+				El moderador encargado es: "{{a.cp}}".
+				La charla tiene como resumen el siguiente: "{{a.resumen}}".
+				
+	{% endfor %}
+
+{% endif %}
+
+
+
 </body>
 </html>

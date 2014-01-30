@@ -18,7 +18,7 @@ from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
 
     
 from clei.apps.clei.models import Evento, Taller, Apertura, Clausura, MiembroCP, \
-    Articulo, Evaluacion, Topico, Autor, Sesiones_Ponencia
+    Articulo, Evaluacion, Topico, Autor, Sesiones_Ponencia, Charlas_Invitadas
 
 
 def index_view(request):
@@ -579,8 +579,10 @@ def generar_actas_view(request):
     template = loader.get_template('clei/actas_conferencia.html')
     lista_articulos = Articulo.objects.filter(Q(status='ACEPTADO') 
                                 | Q(status="ACEPTADO ESPECIAL"))
+    lista_charlas = Charlas_Invitadas.objects.all()
     
-    context = Context({'lista_articulos':lista_articulos,})
+    
+    context = Context({'lista_articulos':lista_articulos,'lista_charlas':lista_charlas,})
     html  = template.render(context)
     result = StringIO.StringIO()
 
