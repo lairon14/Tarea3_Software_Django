@@ -5,6 +5,8 @@ from django.db.models import Q
 
 
 import cStringIO as StringIO
+import ho.pisa as pisa
+
 from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
     RegistrarAutorForm, RegistrarLugar, RegistrarCharlistaInvitado, \
     RegistrarSesionesPonencia, RegistrarEvaluacionForm, RegistrarTopicoForm, \
@@ -12,7 +14,6 @@ from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
     Registrar_Eventos_Sociales, RegistrarCharlasInvitadas
 from clei.apps.clei.models import Evento, Taller, Apertura, Clausura, MiembroCP, \
     Articulo, Evaluacion, Topico, Autor, Sesiones_Ponencia, Charlas_Invitadas
-import ho.pisa as pisa
 
 
 def index_view(request):
@@ -496,6 +497,7 @@ def registrar_sesionesPonencia_view(request):
             
             fecha3 = Sesiones_Ponencia().obtener_fecha_ponencia(fecha_apertura, 4)
             sesionesPonencia = form.save(commit=False)
+            
                 
             if (fecha1 == form.cleaned_data["fecha"] or fecha2 == form.cleaned_data["fecha"] or fecha3 == form.cleaned_data["fecha"]):
             
@@ -586,3 +588,12 @@ def generar_actas_view(request):
         return HttpResponse(result.getvalue(), mimetype='application/pdf')
     return HttpResponse('Error. No se pudo generar el pdf')
     
+    
+def Listar_ArticulosporSesion_view(request):
+     
+     
+    lista_sesiones = Sesiones_Ponencia.objects.all()
+
+    ctx = {"lista_sesiones":lista_sesiones}
+    return render_to_response('ListarArtiporSesion.html', ctx,
+                               context_instance=RequestContext(request))

@@ -1,4 +1,3 @@
-
 from django.conf.urls import patterns, url
 
 
@@ -19,6 +18,7 @@ urlpatterns = patterns = patterns('clei.apps.clei.views',
         url(r'^registrar/sesionesPonencia/$', 'registrar_sesionesPonencia_view', name="vista_registrar_sesionesPonencia"),
         url(r'^programa/conferencia/$', 'generar_programa_view', name="vista_generar_programa"),
         url(r'^actas/conferencia/$', 'generar_actas_view', name="vista_generar_actas"),
+        url(r'^registrar/ListarArticulos/$','Listar_ArticulosporSesion_view',name = "vista_ListarArticulos"),
         )
 
 

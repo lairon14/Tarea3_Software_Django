@@ -63,7 +63,7 @@ class Articulo(models.Model):
     status = models.CharField(max_length=32,
                               choices=TIPOS_DE_ESTADOS,
                               default="SIN DECIDIR")
-    
+        
     def Verificar_topico(self, cp_topicos):
         for top in cp_topicos:
             lista = self.topicos.all()
@@ -261,8 +261,12 @@ class Sesiones_Ponencia(Evento):
     cp = models.ForeignKey(MiembroCP)
     
     def listar_articulos_sesion(self):
-        articulos = self.articulo.all()
-        return articulos
+        articulos = self.articulo
+        return "%s" % articulos
+    
+    def Nombre_Sesion(self):
+        nombre = self.nombre
+        return "%s" % nombre
     
     def obtener_fecha_ponencia(self, fecha, aux):
         
@@ -292,7 +296,7 @@ class Sesiones_Ponencia(Evento):
         return datetime.strptime(str(ano) + "-" + str(mes) + "-" + str(dia), '%Y-%m-%d').date()
     
     def __unicode__(self):
-        return "%s %s %s %s" % (self.nombre, self.resumen, self.articulo, self.cp)
+        return "%s  %s  %s " % (self.nombre, self.articulo, self.cp )
     
 
 
