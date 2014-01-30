@@ -1,5 +1,10 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.template import RequestContext, loader, Context
+from django.http import HttpResponse
+
+import cStringIO as StringIO
+import ho.pisa as pisa
 
 from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
     RegistrarAutorForm, RegistrarLugar, RegistrarCharlistaInvitado, \
@@ -553,3 +558,18 @@ def registrar_sesionesPonencia_view(request):
         ctx = {"form":form}
         return render_to_response('RegistrarSesionesPonencia.html', ctx,
                                    context_instance=RequestContext(request))
+        
+def generar_programa_view(request):
+    template = loader.get_template('prueba.html')
+    lista_eventos = Evento.objects.all()
+    context = Context({'lista_eventos':lista_eventos,})
+    html  = template.render(context)
+    result = StringIO.StringIO()
+
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), mimetype='application/pdf')
+    return HttpResponse('Errors<pre>%s</pre>' % escape(html))
+        
+        
+        

@@ -1,0 +1,31 @@
+<html>
+<head>
+{% load staticfiles %}
+<img src="clei/static/logo_clei.png" alt="logo">
+<br />
+<h1 align="center">Programa detallado de la conferencia</h1p>
+{% if lista_eventos %}
+	
+		<table class="table table-hover" border="1" cellpadding="5">
+		<theader>
+			<tr>
+				<td align="center" ><h1>Duración</h1></td>
+				<td align="center"><h1>Fecha</h1></td>
+				<td align="center"><h1>Hora de inicio</h1></td>
+				<td align="center"><h1>Lugar</h1></td>
+			</tr>
+		</theader>
+	{% for evento in lista_eventos %}
+		<tbody>
+			<tr>
+				<td>{{evento.duracion}}</td>
+				<td>{{evento.fecha}}</td>
+				<td>{{evento.hora_inicio}}</td>
+				<td>{{evento.lugar.nombre}}</td>						
+			</tr>
+		</tbody>
+	{% endfor %}
+
+{% endif %}
+</head>
+</html>
