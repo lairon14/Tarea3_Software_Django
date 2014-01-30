@@ -82,5 +82,5 @@ class Inscripcion(models.Model):
         models.Model.__init__(self, *args, **kwargs)
 
     def __unicode__(self):
-        insc = "%s %s" % (self.persona.__unicode__(), self.pago_realizado)
+        insc = "%s %s-%s %s" % (self.persona.__unicode__(), self.persona.codigo_de_area, self.persona.telefono, self.persona.correo)
         return insc
