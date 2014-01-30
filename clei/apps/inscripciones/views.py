@@ -6,11 +6,11 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 
-from clei.apps.clei.models import Evento, Taller
+from clei.apps.clei.models import Evento, Taller, Charlas_Invitadas
 from clei.apps.inscripciones.forms import ParticipanteForm,\
     InscripcionGeneralForm
 from clei.apps.inscripciones.models import Participante, Inscripcion, \
-    InscribirGeneral, InscribirAcademico, InscribirTalleres
+    InscribirGeneral, InscribirAcademico, InscribirTalleres, InscribirCharlas
 
 
 def index_view(request):
@@ -31,6 +31,10 @@ def ver_academico_view(request):
     
 def ver_talleres_view(request):      
     return render_to_response('inscripciones/ver_talleres.html',
+                              context_instance=RequestContext(request))
+    
+def ver_charlas_view(request):      
+    return render_to_response('inscripciones/ver_charlas.html',
                               context_instance=RequestContext(request))
     
 class CreateAcademicoView(CreateView):
@@ -59,7 +63,7 @@ class CreateGeneralView(CreateView):
     tipoInscripcion.configurar_inscripcion()
     
     
-    initial = {'pago_realizado': tipoInscripcion.costo - tipoInscripcion.descuento,'Persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now, 'eventos': Evento.objects.all()}
+    initial = {'pago_realizado': tipoInscripcion.costo - tipoInscripcion.descuento,'persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now, 'eventos': Evento.objects.all()}
     def get_context_data(self, *args, **kwargs):
         context = super(CreateGeneralView, self).get_context_data(*args, **kwargs)
         return context
@@ -76,9 +80,26 @@ class CreateTalleresView(CreateView):
     tipoInscripcion.configurar_inscripcion()
     
     
-    initial = {'pago_realizado': tipoInscripcion.costo - tipoInscripcion.descuento,'Persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now, 'eventos': Taller.objects.all()}
+    initial = {'pago_realizado': tipoInscripcion.costo - tipoInscripcion.descuento,'persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now, 'eventos': Taller.objects.all()}
     def get_context_data(self, *args, **kwargs):
         context = super(CreateTalleresView, self).get_context_data(*args, **kwargs)
+        return context
+
+    def get_success_url(self):
+        return reverse('ver_inscripcion', args=[self.object.id])
+    
+class CreateCharlasView(CreateView):
+    persona = None
+    model = Inscripcion
+    form_class = InscripcionGeneralForm
+    template_name = "inscripciones/paquete_charlas.html"
+    tipoInscripcion = InscribirCharlas()
+    tipoInscripcion.configurar_inscripcion()
+    
+    
+    initial = {'pago_realizado': tipoInscripcion.costo - tipoInscripcion.descuento,'persona' :Participante.objects.last(), 'costo':tipoInscripcion.costo, 'descuento':tipoInscripcion.descuento, 'fecha_inscripcion':datetime.now, 'eventos': Charlas_Invitadas.objects.all()}
+    def get_context_data(self, *args, **kwargs):
+        context = super(CreateCharlasView, self).get_context_data(*args, **kwargs)
         return context
 
     def get_success_url(self):

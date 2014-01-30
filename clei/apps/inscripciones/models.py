@@ -66,6 +66,16 @@ class InscribirTalleres(ComoInscribir):
     
     def configurar_inscripcion(self):
             self.costo = self.costo - self.descuento 
+            
+class InscribirCharlas(ComoInscribir):
+    
+    def __init__(self):
+        self.fecha_limite = datetime(2015, 01, 31, 11, 00, 00)
+        self.costo = 100
+        self.descuento = 0
+    
+    def configurar_inscripcion(self):
+            self.costo = self.costo - self.descuento 
     
 class Inscripcion(models.Model):
     persona = models.ForeignKey(Participante)
@@ -82,5 +92,5 @@ class Inscripcion(models.Model):
         models.Model.__init__(self, *args, **kwargs)
 
     def __unicode__(self):
-        insc = "%s %s-%s %s" % (self.persona.__unicode__(), self.persona.codigo_de_area, self.persona.telefono, self.persona.correo)
+        insc = "%s | %s-%s | %s" % (self.persona.__unicode__(), self.persona.codigo_de_area, self.persona.telefono, self.persona.correo)
         return insc
