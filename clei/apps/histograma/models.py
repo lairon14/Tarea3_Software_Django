@@ -2,8 +2,7 @@
 from django.db.models import Q
 
 from clei.apps.clei.models import Articulo
-import matplotlib.pyplot as plt
-import numpy as np
+
 
 
 class histograma():

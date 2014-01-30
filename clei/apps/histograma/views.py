@@ -1,8 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
-from clei.apps.clei.models import Articulo
 from clei.apps.histograma.models import histograma
 import matplotlib.pyplot as plt
 import numpy as np

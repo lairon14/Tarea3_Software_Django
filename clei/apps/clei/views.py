@@ -1,6 +1,11 @@
-from django.http import HttpResponse
+import datetime
+
 from django.shortcuts import render_to_response
-from django.template import RequestContext, RequestContext, loader, Context
+from django.template import RequestContext
+from django.template import RequestContext, loader, Context
+from django.http import HttpResponse
+from django.db.models import Q
+
 
 import cStringIO as StringIO
 from clei.apps.clei.forms import RegistrarApertura, RegistrarClausura, \
@@ -555,13 +560,30 @@ def registrar_sesionesPonencia_view(request):
                                    context_instance=RequestContext(request))
         
 def generar_programa_view(request):
-    template = loader.get_template('prueba.html')
-    lista_eventos = Evento.objects.all()
-    context = Context({'lista_eventos':lista_eventos, })
-    html = template.render(context)
+    template = loader.get_template('clei/programa_conferencia.html')
+    lista_eventos = Evento.objects.all().order_by('fecha', 'hora_inicio')
+    
+    context = Context({'lista_eventos':lista_eventos,})
+    html  = template.render(context)
+
     result = StringIO.StringIO()
 
     pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
     if not pdf.err:
         return HttpResponse(result.getvalue(), mimetype='application/pdf')
-    return HttpResponse('Errors<pre>%s</pre>' % escape(html))
+    return HttpResponse('Error. No se pudo generar el pdf')
+
+def generar_actas_view(request):
+    template = loader.get_template('clei/actas_conferencia.html')
+    lista_articulos = Articulo.objects.filter(Q(status='ACEPTADO') 
+                                | Q(status="ACEPTADO ESPECIAL"))
+    
+    context = Context({'lista_articulos':lista_articulos,})
+    html  = template.render(context)
+    result = StringIO.StringIO()
+
+    pdf = pisa.pisaDocument(StringIO.StringIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), mimetype='application/pdf')
+    return HttpResponse('Error. No se pudo generar el pdf')
+    
