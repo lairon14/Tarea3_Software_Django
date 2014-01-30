@@ -13,5 +13,5 @@ class ParticipanteForm(forms.ModelForm):
 class InscripcionGeneralForm(forms.ModelForm):
     class Meta:
         model = Inscripcion
-        exclude = ['costo', 'descuento', 'fecha_inscripcion', 'pago_realizado']
-        #exclude = ['costo', 'descuento', 'fecha_inscripcion','eventos', 'pago_realizado']
+        #exclude = ['costo', 'descuento', 'fecha_inscripcion', 'pago_realizado']
+        exclude = ['costo', 'descuento', 'fecha_inscripcion','eventos', 'pago_realizado']

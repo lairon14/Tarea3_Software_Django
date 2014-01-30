@@ -56,6 +56,16 @@ class InscribirAcademico(ComoInscribir):
     
     def configurar_inscripcion(self):
             self.costo = self.costo - self.descuento      
+
+class InscribirTalleres(ComoInscribir):
+    
+    def __init__(self):
+        self.fecha_limite = datetime(2015, 01, 31, 11, 00, 00)
+        self.costo = 125
+        self.descuento = 0
+    
+    def configurar_inscripcion(self):
+            self.costo = self.costo - self.descuento 
     
 class Inscripcion(models.Model):
     persona = models.ForeignKey(Participante)
