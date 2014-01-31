@@ -223,7 +223,7 @@ def registrar_taller_view(request):
                         # si ya existe un evento en el mismo lugar
                         if evento.lugar == taller.lugar:
                             hora_fin_evento = Evento().HoraFin(evento.hora_inicio, evento.duracion)
-                            if evento.hora_inicio < taller.hora_inicio and taller.hora_inicio < hora_fin_evento:
+                            if evento.hora_inicio <= taller.hora_inicio and taller.hora_inicio <= hora_fin_evento:
                                 flag = 1
                 if flag:
                     info = "Ya existe un taller en este horario, lugar y fecha."
@@ -276,7 +276,7 @@ def registrar_evento_social_view(request):
                     if evento.fecha == eventos_Sociales.fecha:
                         # si ya existe un evento en el mismo lugar
                         hora_fin_evento = Evento().HoraFin(evento.hora_inicio, evento.duracion)
-                        if evento.hora_inicio < eventos_Sociales.hora_inicio and eventos_Sociales.hora_inicio < hora_fin_evento:
+                        if evento.hora_inicio <= eventos_Sociales.hora_inicio and eventos_Sociales.hora_inicio <= hora_fin_evento:
                             flag = 1
                 if flag:
                     info = "Ya existe un evento social en este horario y fecha."
@@ -456,7 +456,7 @@ def registrar_charlasInvitadas_view(request):
                             # si ya existe un evento en el mismo lugar
                             if evento.lugar == charlasInvitadas.lugar:
                                 hora_fin_evento = Evento().HoraFin(evento.hora_inicio, evento.duracion)
-                                if evento.hora_inicio < charlasInvitadas.hora_inicio and charlasInvitadas.hora_inicio < hora_fin_evento:
+                                if evento.hora_inicio <= charlasInvitadas.hora_inicio and charlasInvitadas.hora_inicio <= hora_fin_evento:
                                     flag = 1
                     if flag:
                         info = "Ya existe una charla en este horario, lugar y fecha"
@@ -531,7 +531,7 @@ def registrar_sesionesPonencia_view(request):
                             # si ya existe un evento en el mismo lugar
                             if evento.lugar == sesionesPonencia.lugar:
                                 hora_fin_evento = Evento().HoraFin(evento.hora_inicio, evento.duracion)
-                                if evento.hora_inicio < sesionesPonencia.hora_inicio and sesionesPonencia.hora_inicio < hora_fin_evento:
+                                if evento.hora_inicio <= sesionesPonencia.hora_inicio and sesionesPonencia.hora_inicio <= hora_fin_evento:
                                     flag = 1
                     if flag:
                         info = "Ya existe una ponencia en este horario, lugar y fecha" 
