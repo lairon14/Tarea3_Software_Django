@@ -20,3 +20,8 @@ Para poder hacer uso de esta entrega se deben tener instaladas las herramientas,
 La pagina principal del proyecto podra ser accedida a traves de la direccion 127.0.0.1:8000 en un explorador web.
 
 Alternativamente se puede configurar la base de datos en el archivo setting.py en la carpeta del proyecto.
+
+Para la correcta ejecucion del proyecto es necesario instalar las siguientes
+librerias de python:
+
+sudo apt-get install python-pisa python-matplotlib python-html5lib python-numpy python-psycopg2
